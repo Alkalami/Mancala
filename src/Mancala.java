@@ -2,13 +2,13 @@ public class Mancala
 {
 	public Mancala(int stones)
 	{
-		pits = new int[N_PLAYERS,BOARD_LENGTH];
+		pits = new int[N_PLAYERS][BOARD_LENGTH];
 		mancalas = new int[N_PLAYERS];
-		for (p = 0; p < N_PLAYERS; p++)
+		for (int p = 0; p < N_PLAYERS; p++)
 		{
 			mancalas[p] = 0;
 			for (int col = 0; col < BOARD_LENGTH; col++)
-				pits[col] = stones;
+				pits[p][col] = stones;
 		}
 		activePlayer = 0;
 		undoCount = 0;
@@ -20,18 +20,18 @@ public class Mancala
 	{
 		if (player != activePlayer)
 			throw new IllegalArgumentException("Player not currently active.");
-		int hand = pits[player,pit];
-		pits[player,pit] = 0;
+		int hand = pits[player][pit];
+		pits[player][pit] = 0;
 		while (hand > 0)
 		{
-			pit = nextPit();
+			pit = nextPit(pit);
 			if (pit == 0)
 			{
 				// Check for mancala placement here.
 				// Then check hand == 0, if so current player gets next turn.
-				player = nextPlayer();
+				player = nextPlayer(player);
 			}
-			++pits[player,pit];
+			++pits[player][pit];
 			--hand;
 		}
 	}
@@ -59,8 +59,8 @@ public class Mancala
 		return player;
 	}
 
-	private int[,] pits;
-	private int[,] undoPits;
+	private int[][] pits;
+	private int[][] undoPits;
 	private int[] mancalas;
 	private int[] undoMancalas;
 	private int activePlayer; // Change to turn checking var name;
@@ -68,4 +68,5 @@ public class Mancala
 
 	private static final int N_PLAYERS = 2;
 	private static final int BOARD_LENGTH = 6;
+	private static final int UNDO_MAX = 3;
 }
