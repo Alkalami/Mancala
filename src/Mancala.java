@@ -16,22 +16,22 @@ public class Mancala
 		undoMancalas = mancalas;
 	}
 
-	public void move(int player, int pit)
+	public void move(int side, int pit)
 	{
-		if (player != activePlayer)
+		if (side != activePlayer)
 			throw new IllegalArgumentException("Player not currently active.");
-		int hand = pits[player][pit];
-		pits[player][pit] = 0;
+		int hand = pits[side][pit];
+		pits[side][pit] = 0;
 		while (hand > 0)
 		{
 			pit = nextPit(pit);
 			if (pit == 0)
 			{
 				// Check for mancala placement here.
-				// Then check hand == 0, if so current player gets next turn.
-				player = nextPlayer(player);
+				// Then check hand == 0, if so current side gets next turn.
+				side = nextPlayer(side);
 			}
-			++pits[player][pit];
+			++pits[side][pit];
 			--hand;
 		}
 	}
@@ -52,11 +52,11 @@ public class Mancala
 		return pit;
 	}
 
-	private int nextPlayer(int player)
+	private int nextPlayer(int side)
 	{
-		if (++player >= N_PLAYERS)
-			player = 0;
-		return player;
+		if (++side >= N_PLAYERS)
+			side = 0;
+		return side;
 	}
 
 	private int[][] pits;
