@@ -31,12 +31,17 @@ public class Mancala
 				{
 					++mancalas[side];
 					if (hand <= 0)
-				// Then check hand == 0, if so current side gets next turn.
-				side = nextPlayer();
+					{
+						activePlayer = side;
+						return;
+					}
+				}
+				side = nextSide();
 			}
 			++pits[side,pit];
 			--hand;
 		}
+		endTurn(side, pit)
 	}
 
 	public void undo()
