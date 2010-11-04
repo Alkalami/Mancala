@@ -20,7 +20,7 @@ public class MancalaCLI
 		game.move(1,4);
 		refresh();
 		kimDraw();
-		game.undo();
+		game.undo(1);
 		refresh();
 		kimDraw();
 	}

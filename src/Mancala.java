@@ -13,7 +13,8 @@ public class Mancala
 				pits[p][col] = stones;
 		}
 		activePlayer = 0;
-		undoCount = 0;
+		for (int i = 0; i < undoCount.length; i++)
+		   undoCount[i] = 0;
 		undoPits = pits.clone();
 		undoMancalas = mancalas.clone();
 	}
@@ -22,9 +23,16 @@ public class Mancala
 	{
 		if (side != activePlayer)
 			throw new IllegalArgumentException("Player not currently active.");
-		undoMancalas = mancalas.clone();
-		undoPits = pits.clone();
+		
+		if (undoCount[side] == 0)
+		{
+		   undoMancalas = mancalas.clone();
+		   undoPits = pits.clone();
+	      //resets other player's undo count
+	      undoCount[nextSide(side)] = 0;
+		}
 
+		
 		int hand = pits[side][pit];
 		pits[side][pit] = 0;
 		while (hand > 0)
@@ -52,18 +60,13 @@ public class Mancala
 		endTurn(side, pit);
 	}
 
-	public void undo()
+	public void undo(int side)
 	{
-		if (undoCount >= UNDO_MAX)
+		if (undoCount[side] >= UNDO_MAX)
 			return;
 		pits = undoPits;
 		mancalas = undoMancalas;
-		//pits[0] = new int[] { 0, 0, 0, 0, 0, 0 };
-		//pits[1] = new int[] { 0, 0, 0, 0, 0, 0 };
-		//mancalas[0] = 0;
-		//mancalas[1] = 0;
-		++undoCount;
-		somethingChanged();
+		++undoCount[side];
 	}
 
 	public void /*ChangeEvent*/ somethingChanged()
@@ -90,10 +93,46 @@ public class Mancala
 		if (side == activePlayer && pits[side][pit] == 1)
 		{
 			mancalas[side] += 1 + pits[nextSide(side)][BOARD_LENGTH - pit - 1];
+			pits[side][pit] = 0;
 			pits[nextSide(side)][BOARD_LENGTH - pit - 1] = 0;
+		} else {
+		   activePlayer = nextSide(activePlayer);
+		   //somethingChanged();
 		}
-		activePlayer = nextSide(activePlayer);
-		somethingChanged();
+
+      // checks if either side is empty and ends the game
+		int[][] checkPits = getPits();
+		int empty;
+		for (int i = 0; i < N_PLAYERS; i++) {
+		   empty = 0;
+		   for (int j = 0; j < BOARD_LENGTH; j++) {
+		      if (pits[i][j] == 0)
+		         empty++;
+		   }
+
+		   if (empty == BOARD_LENGTH) {
+		      endGame(nextSide(i));
+		      break;
+		   }
+		}
+	}
+	
+	private int endGame(int side)
+	{
+	   int[] winner = getMancalas();
+	   int[][] checkPits = getPits();
+	   
+	   // empties the remainder of the board
+	   for (int i = 0; i < BOARD_LENGTH; i++) {
+	      winner[side] += checkPits[side][i];
+	      checkPits[side][i] = 0;
+	   }
+	   
+	   // determines the winner
+	   if (winner[activePlayer] > winner[nextSide(activePlayer)])
+	      return activePlayer;
+	   else
+	      return nextSide(activePlayer);
 	}
 
 	private int nextPit(int pit)
@@ -115,7 +154,7 @@ public class Mancala
 	private int[] mancalas;
 	private int[] undoMancalas;
 	private int activePlayer; // Change to turn checking var name;
-	private int undoCount;
+	private int[] undoCount;
 
 	public static final int N_PLAYERS = 2;
 	public static final int BOARD_LENGTH = 6;
