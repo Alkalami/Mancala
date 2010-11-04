@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Mancala
 {
 	public Mancala(int stones)
@@ -29,7 +31,7 @@ public class Mancala
 			{
 				// Check for mancala placement here.
 				// Then check hand == 0, if so current side gets next turn.
-				side = nextPlayer(side);
+				side = nextSide(side);
 				if (side == activePlayer)
 				{
 					++mancalas[side];
@@ -39,12 +41,12 @@ public class Mancala
 						return;
 					}
 				}
-				side = nextSide();
+				side = nextSide(side);
 			}
 			++pits[side][pit];
 			--hand;
 		}
-		endTurn(side, pit)
+		endTurn(side, pit);
 	}
 
 	public void undo()
@@ -54,6 +56,37 @@ public class Mancala
 		pits = undoPits;
 		mancalas = undoMancalas;
 		++undoCount;
+		somethingChanged();
+	}
+
+	public void /*ChangeEvent*/ somethingChanged()
+	{ return; }
+
+	public int[][] getPits()
+	{
+		return (int[][]) pits.clone();
+	}
+
+	public int[] getMancalas()
+	{
+		return mancalas.clone();
+	}
+
+	private void endTurn(int side, int pit)
+	{
+		/* What happens at the end of a turn?
+		 *	A: The case of ending in a mancala is handled in move().
+		 *	B: Ending in an empty pit on your own side allows you to
+		 *		take that stone and all stones in the adjacent pit.
+		 *	C: Your turn ends when your hand is empty.
+		 */
+		if (side == activePlayer && pits[side][pit] == 1)
+		{
+			mancalas[side] += 1 + pits[nextSide(side)][BOARD_LENGTH - pit - 1];
+			pits[nextSide(side)][BOARD_LENGTH - pit - 1] = 0;
+		}
+		activePlayer = nextSide(activePlayer);
+		somethingChanged();
 	}
 
 	private int nextPit(int pit)
@@ -77,7 +110,7 @@ public class Mancala
 	private int activePlayer; // Change to turn checking var name;
 	private int undoCount;
 
-	private static final int N_PLAYERS = 2;
-	private static final int BOARD_LENGTH = 6;
+	public static final int N_PLAYERS = 2;
+	public static final int BOARD_LENGTH = 6;
 	private static final int UNDO_MAX = 3;
 }
