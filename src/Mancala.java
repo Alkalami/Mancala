@@ -20,23 +20,16 @@ public class Mancala
 	{
 		if (side != activePlayer)
 			throw new IllegalArgumentException("Player not currently active.");
-<<<<<<< local
 		int hand = pits[side][pit];
 		pits[side][pit] = 0;
-=======
-		int hand = pits[side,pit];
-		pits[side,pit] = 0;
->>>>>>> other
 		while (hand > 0)
 		{
 			pit = nextPit(pit);
 			if (pit == 0)
 			{
-<<<<<<< local
 				// Check for mancala placement here.
 				// Then check hand == 0, if so current side gets next turn.
 				side = nextPlayer(side);
-=======
 				if (side == activePlayer)
 				{
 					++mancalas[side];
@@ -47,13 +40,8 @@ public class Mancala
 					}
 				}
 				side = nextSide();
->>>>>>> other
 			}
-<<<<<<< local
 			++pits[side][pit];
-=======
-			++pits[side,pit];
->>>>>>> other
 			--hand;
 		}
 		endTurn(side, pit)
@@ -74,12 +62,8 @@ public class Mancala
 			pit = 0;
 		return pit;
 	}
-
-<<<<<<< local
-	private int nextPlayer(int side)
-=======
+	
 	private int nextSide(int side)
->>>>>>> other
 	{
 		if (++side >= N_PLAYERS)
 			side = 0;
