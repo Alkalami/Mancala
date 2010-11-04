@@ -6,21 +6,45 @@ public class MancalaCLI
 	{
 		System.out.println("Mancala CLI");
 		MancalaCLI cli = new MancalaCLI(3);
-		cli.drawBoard();
 		return;
 	}
 
-	/* Sample Board */
-	/*	M2{0} 6[3] 5[3] 4[3] 3[3] 2[3] 1[3]
-	 *	      1[3] 2[3] 3[3] 4[3] 5[3] 6[3] M1{0}
-	 */
 	public MancalaCLI(int stones)
 	{
 		game = new Mancala(stones);
+		refresh();
+		kimDraw();
+		game.move(0,3);
+		refresh();
+		kimDraw();
+		game.move(1,4);
+		refresh();
+		kimDraw();
+		game.undo();
+		refresh();
+		kimDraw();
+	}
+
+	private void kimDraw()
+	{
+		System.out.print("  ");
+		for (int i = Mancala.BOARD_LENGTH - 1; i >= 0; i--)
+			System.out.print(pits[0][i] + " ");
+		System.out.println();
+		System.out.println(mancalas[0] + " a b c d e f " + mancalas[1]);
+		System.out.print("  ");
+		for (int i = 0; i < Mancala.BOARD_LENGTH; i++)
+			System.out.print(pits[1][i] + " ");
+		System.out.println("\n");
+			
+	}
+	
+	private void refresh()
+	{
 		pits = game.getPits();
 		mancalas = game.getMancalas();
 	}
-	
+
 	private Mancala game;
 	private int[][] pits;
 	private int[] mancalas;

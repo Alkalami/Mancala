@@ -14,14 +14,17 @@ public class Mancala
 		}
 		activePlayer = 0;
 		undoCount = 0;
-		undoPits = pits;
-		undoMancalas = mancalas;
+		undoPits = pits.clone();
+		undoMancalas = mancalas.clone();
 	}
 
 	public void move(int side, int pit)
 	{
 		if (side != activePlayer)
 			throw new IllegalArgumentException("Player not currently active.");
+		undoMancalas = mancalas.clone();
+		undoPits = pits.clone();
+
 		int hand = pits[side][pit];
 		pits[side][pit] = 0;
 		while (hand > 0)
@@ -31,13 +34,13 @@ public class Mancala
 			{
 				// Check for mancala placement here.
 				// Then check hand == 0, if so current side gets next turn.
-				side = nextSide(side);
 				if (side == activePlayer)
 				{
 					++mancalas[side];
+					--hand;
 					if (hand <= 0)
 					{
-						activePlayer = side;
+						activePlayer = nextSide(side);
 						return;
 					}
 				}
@@ -55,6 +58,10 @@ public class Mancala
 			return;
 		pits = undoPits;
 		mancalas = undoMancalas;
+		//pits[0] = new int[] { 0, 0, 0, 0, 0, 0 };
+		//pits[1] = new int[] { 0, 0, 0, 0, 0, 0 };
+		//mancalas[0] = 0;
+		//mancalas[1] = 0;
 		++undoCount;
 		somethingChanged();
 	}
@@ -64,7 +71,7 @@ public class Mancala
 
 	public int[][] getPits()
 	{
-		return (int[][]) pits.clone();
+		return pits.clone();
 	}
 
 	public int[] getMancalas()
