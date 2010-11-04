@@ -7,6 +7,7 @@ public class Mancala
 		pits = new int[N_PLAYERS][BOARD_LENGTH];
 		mancalas = new int[N_PLAYERS];
 		undoCount = new int[N_PLAYERS];
+		undoPits = new int[N_PLAYERS][];
 		for (int p = 0; p < N_PLAYERS; p++)
 		{
 			mancalas[p] = 0;
@@ -15,9 +16,8 @@ public class Mancala
 		}
 		activePlayer = 0;
 		for (int i = 0; i < undoCount.length; i++)
-		   undoCount[i] = 0;
-		undoPits = pits.clone();
-		undoMancalas = mancalas.clone();
+			 undoCount[i] = 0;
+		setUndoBuffer();
 	}
 
 	public void move(int side, int pit)
@@ -27,10 +27,9 @@ public class Mancala
 		
 		if (undoCount[side] == 0)
 		{
-		   undoMancalas = mancalas.clone();
-		   undoPits = pits.clone();
-	      //resets other player's undo count
-	      undoCount[nextSide(side)] = 0;
+			setUndoBuffer();
+			//resets other player's undo count
+			undoCount[nextSide(side)] = 0;
 		}
 
 		
@@ -83,6 +82,14 @@ public class Mancala
 		return mancalas.clone();
 	}
 
+	private void setUndoBuffer()
+	{
+		undoMancalas = mancalas.clone();
+		for (int i = 0; i < N_PLAYERS; i++)
+			undoPits[i] = pits[i].clone();
+	}
+		
+
 	private void endTurn(int side, int pit)
 	{
 		/* What happens at the end of a turn?
@@ -94,46 +101,46 @@ public class Mancala
 		if (side == activePlayer && pits[side][pit] == 1)
 		{
 			mancalas[side] += 1 + pits[nextSide(side)][BOARD_LENGTH - pit - 1];
-			pits[side][pit] = 0;
+			//pits[side][pit] = 0;
 			pits[nextSide(side)][BOARD_LENGTH - pit - 1] = 0;
 		} else {
-		   activePlayer = nextSide(activePlayer);
-		   //somethingChanged();
+			 activePlayer = nextSide(activePlayer);
+			 //somethingChanged();
 		}
 
       // checks if either side is empty and ends the game
 		int[][] checkPits = getPits();
 		int empty;
 		for (int i = 0; i < N_PLAYERS; i++) {
-		   empty = 0;
-		   for (int j = 0; j < BOARD_LENGTH; j++) {
-		      if (pits[i][j] == 0)
-		         empty++;
-		   }
+			 empty = 0;
+			 for (int j = 0; j < BOARD_LENGTH; j++) {
+					if (pits[i][j] == 0)
+						 empty++;
+			 }
 
-		   if (empty == BOARD_LENGTH) {
-		      endGame(nextSide(i));
-		      break;
-		   }
+			 if (empty == BOARD_LENGTH) {
+					endGame(nextSide(i));
+					break;
+			 }
 		}
 	}
 	
 	private int endGame(int side)
 	{
-	   int[] winner = getMancalas();
-	   int[][] checkPits = getPits();
-	   
-	   // empties the remainder of the board
-	   for (int i = 0; i < BOARD_LENGTH; i++) {
-	      winner[side] += checkPits[side][i];
-	      checkPits[side][i] = 0;
-	   }
-	   
-	   // determines the winner
-	   if (winner[activePlayer] > winner[nextSide(activePlayer)])
-	      return activePlayer;
-	   else
-	      return nextSide(activePlayer);
+		 int[] winner = getMancalas();
+		 int[][] checkPits = getPits();
+		 
+		 // empties the remainder of the board
+		 for (int i = 0; i < BOARD_LENGTH; i++) {
+				winner[side] += checkPits[side][i];
+				checkPits[side][i] = 0;
+		 }
+		 
+		 // determines the winner
+		 if (winner[activePlayer] > winner[nextSide(activePlayer)])
+				return activePlayer;
+		 else
+				return nextSide(activePlayer);
 	}
 
 	private int nextPit(int pit)
