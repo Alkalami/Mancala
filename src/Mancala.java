@@ -6,6 +6,7 @@ public class Mancala
 	{
 		pits = new int[N_PLAYERS][BOARD_LENGTH];
 		mancalas = new int[N_PLAYERS];
+		undoCount = new int[N_PLAYERS];
 		for (int p = 0; p < N_PLAYERS; p++)
 		{
 			mancalas[p] = 0;
