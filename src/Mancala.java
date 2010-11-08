@@ -1,7 +1,16 @@
 import java.util.*;
 
+/**
+ * A Mancala object
+ * @author Group Teamedward
+ *
+ */
 public class Mancala
 {
+	/**
+	 * Contructs a Mancala object
+	 * @param stones number of stones(3 or 4)
+	 */
 	public Mancala(int stones)
 	{
 		pits = new int[N_PLAYERS][BOARD_LENGTH];
@@ -19,7 +28,12 @@ public class Mancala
 			 undoCount[i] = 0;
 		setUndoBuffer();
 	}
-
+	
+	/**
+	 * Move stones on the board
+	 * @param side a player
+	 * @param pit a pit
+	 */
 	public void move(int side, int pit)
 	{
 		if (side != activePlayer)
@@ -60,6 +74,10 @@ public class Mancala
 		endTurn(side, pit);
 	}
 
+	/**
+	 * Offer an undo of what a player has just chosen.
+	 * @param side which player
+	 */
 	public void undo(int side)
 	{
 		if (undoCount[side] >= UNDO_MAX)
@@ -72,16 +90,28 @@ public class Mancala
 	public void /*ChangeEvent*/ somethingChanged()
 	{ return; }
 
+	/**
+	 * Get the player's pits
+	 * @return a 2-dimensional array of a player and his pits
+	 */
 	public int[][] getPits()
 	{
 		return pits.clone();
 	}
 
+	/**
+	 * Get Mancala
+	 * @return a single array of a player and his Mancalas of stones
+	 */
 	public int[] getMancalas()
 	{
 		return mancalas.clone();
 	}
 
+	/**
+	 * Set the status of the board back as before a player makes a selection
+	 * of a pit.
+	 */
 	private void setUndoBuffer()
 	{
 		undoMancalas = mancalas.clone();
@@ -89,10 +119,17 @@ public class Mancala
 			undoPits[i] = pits[i].clone();
 	}
 		
-
+	/**
+	 * Check if the last stone that a player drops is in his own empty pit.
+	 * If so, the player will take that stone and all of his opponent's
+	 * stones and put them in his Mancala. Also, check if all of a
+	 * player's pits  
+	 * @param side which player
+	 * @param pit a pit
+	 */
 	private void endTurn(int side, int pit)
 	{
-		/* What happens at the end of a turn?
+		/* What happens at the end of a turn? 
 		 *	A: The case of ending in a mancala is handled in move().
 		 *	B: Ending in an empty pit on your own side allows you to
 		 *		take that stone and all stones in the adjacent pit.
@@ -103,7 +140,9 @@ public class Mancala
 			mancalas[side] += 1 + pits[nextSide(side)][BOARD_LENGTH - pit - 1];
 			//pits[side][pit] = 0;
 			pits[nextSide(side)][BOARD_LENGTH - pit - 1] = 0;
-		} else {
+		} 
+		else
+		{
 			 activePlayer = nextSide(activePlayer);
 			 //somethingChanged();
 		}
@@ -111,20 +150,28 @@ public class Mancala
       // checks if either side is empty and ends the game
 		int[][] checkPits = getPits();
 		int empty;
-		for (int i = 0; i < N_PLAYERS; i++) {
+		for (int i = 0; i < N_PLAYERS; i++)
+		{
 			 empty = 0;
-			 for (int j = 0; j < BOARD_LENGTH; j++) {
+			 for (int j = 0; j < BOARD_LENGTH; j++)
+			 {
 					if (pits[i][j] == 0)
 						 empty++;
 			 }
 
-			 if (empty == BOARD_LENGTH) {
+			 if (empty == BOARD_LENGTH)
+			 {
 					endGame(nextSide(i));
 					break;
 			 }
 		}
 	}
 	
+	/**
+	 * End the game and check who wins
+	 * @param side one size of the players
+	 * @return winner
+	 */
 	private int endGame(int side)
 	{
 		 int[] winner = getMancalas();
@@ -143,6 +190,11 @@ public class Mancala
 				return nextSide(activePlayer);
 	}
 
+	/**
+	 * Go to next pit
+	 * @param pit a pit
+	 * @return a pit
+	 */
 	private int nextPit(int pit)
 	{
 		if (++pit >= BOARD_LENGTH)
@@ -150,6 +202,11 @@ public class Mancala
 		return pit;
 	}
 	
+	/**
+	 * Get the next size of the players
+	 * @param side a size of the players
+	 * @return the next size of the current size of the players
+	 */
 	private int nextSide(int side)
 	{
 		if (++side >= N_PLAYERS)

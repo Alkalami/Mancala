@@ -18,9 +18,9 @@ public class MancalaCLI
 		refresh();
 		kimDraw();
 		game.move(1,4);
-		refresh();
+	   refresh();
 		kimDraw();
-		game.undo(1);
+      game.undo(1);
 		refresh();
 		kimDraw();
 	}
