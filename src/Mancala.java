@@ -90,7 +90,7 @@ public class Mancala
 
 	/**
 	 * Get the player's pits
-	 * @return a 2-dimensional array of a player and his pits
+	 * @return a 2-dimensional array of player pits
 	 */
 	public int[][] getPits()
 	{
@@ -99,7 +99,7 @@ public class Mancala
 
 	/**
 	 * Get Mancala
-	 * @return a single array of a player and his Mancalas of stones
+	 * @return a single array of player Mancalas of stones
 	 */
 	public int[] getMancalas()
 	{
@@ -120,8 +120,8 @@ public class Mancala
 	/**
 	 * Check if the last stone that a player drops is in his own empty pit.
 	 * If so, the player will take that stone and all of his opponent's
-	 * stones and put them in his Mancala. Also, check if all of a
-	 * player's pits  
+	 * adjacent stones and put them in his Mancala. Also, checks if one
+	 * side of the board is empty
 	 * @param side which player
 	 * @param pit a pit
 	 */
@@ -167,7 +167,7 @@ public class Mancala
 	
 	/**
 	 * End the game and check who wins
-	 * @param side one size of the players
+	 * @param side one side of the players
 	 * @return winner
 	 */
 	private int endGame(int side)
@@ -212,11 +212,19 @@ public class Mancala
 		return side;
 	}
 	
+	/**
+	 * Checks for the active player
+	 * @return the active player
+	 */
 	public String getPlayer()
 	{
 		return "Player "+(activePlayer+1)+"'s Move";
 	}
 	
+	/**
+	 * Checks how many undo moves is possible
+	 * @return undo count
+	 */
 	public int getUndoCount()
 	{
 		return UNDO_MAX - undoCount[nextSide(activePlayer)];

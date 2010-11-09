@@ -1,15 +1,11 @@
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
 
 public class MancalaGUI
 {
 	static Mancala game;
-	static int stoneCount;
+	static int stoneCount = 3;
 	static JFrame frame;
 	static JFrame gameFrame;
 	static int width = 500;
@@ -19,11 +15,20 @@ public class MancalaGUI
 	{		
 		frame = new JFrame();
 		frame.setSize(width,height);
+		JPanel panel = new JPanel();
 
-      JLabel chooseStones = new JLabel("Choose the initial stone count");
+      JLabel chooseStones = new JLabel("Initial stone count: ");
       
-		JButton three = new JButton("Three");
-		JButton four = new JButton("Four");
+		JRadioButton three = new JRadioButton("Three");
+		JRadioButton four = new JRadioButton("Four");
+		ButtonGroup group = new ButtonGroup();
+		
+		panel.add(three);
+		group.add(three);
+		three.setSelected(true);
+		panel.add(four);
+		group.add(four);
+		
 		JButton start = new JButton("Start Game");
 		
 		three.addActionListener(setStoneCount(3));
@@ -32,8 +37,7 @@ public class MancalaGUI
 		
 		frame.setLayout(new FlowLayout());
 		frame.add(chooseStones);
-		frame.add(three);
-		frame.add(four);
+		frame.add(panel);
 		frame.add(start);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       //frame.pack();
@@ -64,12 +68,17 @@ public class MancalaGUI
             gameFrame = new JFrame();
             gameFrame.setSize(width,height);
             
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(450,225));
+            
             JLabel player = new JLabel(game.getPlayer());
+            player.setPreferredSize(new Dimension(350,10));
             
       		JButton undoButton = new JButton("Undo: "+game.getUndoCount());
       		undoButton.addActionListener(undo());
       		
       		gameFrame.setLayout(new FlowLayout());
+      		gameFrame.add(panel);
       		gameFrame.add(player);
             gameFrame.add(undoButton);
             gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
