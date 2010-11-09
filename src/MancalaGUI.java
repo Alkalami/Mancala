@@ -15,19 +15,30 @@ public class MancalaGUI
 	{		
 		frame = new JFrame();
 		frame.setSize(width,height);
-		JPanel panel = new JPanel();
+		JPanel stonePanel = new JPanel();
+		JPanel layoutPanel = new JPanel();
 
       JLabel chooseStones = new JLabel("Initial stone count: ");
       
-		JRadioButton three = new JRadioButton("Three");
+		JRadioButton three = new JRadioButton("Three", true);
 		JRadioButton four = new JRadioButton("Four");
-		ButtonGroup group = new ButtonGroup();
+		ButtonGroup stoneGroup = new ButtonGroup();
 		
-		panel.add(three);
-		group.add(three);
-		three.setSelected(true);
-		panel.add(four);
-		group.add(four);
+		stonePanel.add(three);
+		stoneGroup.add(three);
+		stonePanel.add(four);
+		stoneGroup.add(four);
+		
+		JLabel chooseLayout = new JLabel("Choose a layout: ");
+		
+		JRadioButton layout1 = new JRadioButton("Icon", true);
+		JRadioButton layout2 = new JRadioButton("Icon");
+		ButtonGroup layoutGroup = new ButtonGroup();
+		
+		layoutPanel.add(layout1);
+		layoutGroup.add(layout1);
+		layoutPanel.add(layout2);
+		layoutGroup.add(layout2);
 		
 		JButton start = new JButton("Start Game");
 		
@@ -35,9 +46,12 @@ public class MancalaGUI
 		four.addActionListener(setStoneCount(4));
 		start.addActionListener(setGame(stoneCount));
 		
+		
 		frame.setLayout(new FlowLayout());
 		frame.add(chooseStones);
-		frame.add(panel);
+		frame.add(stonePanel);
+		frame.add(chooseLayout);
+		frame.add(layoutPanel);
 		frame.add(start);
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       //frame.pack();
