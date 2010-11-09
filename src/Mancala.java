@@ -1,6 +1,7 @@
 /**
- * A Mancala object
- * @author Group Teamedward
+ * An object modelling a game of mancala.
+ * With hooks for GUI or CLI representation.
+ * @author Team Edward.
  *
  */
 public class Mancala
@@ -44,7 +45,7 @@ public class Mancala
 			undoCount[nextSide(side)] = 0;
 		}
 
-		
+
 		int hand = pits[side][pit];
 		pits[side][pit] = 0;
 		while (hand > 0)
@@ -116,7 +117,7 @@ public class Mancala
 		for (int i = 0; i < N_PLAYERS; i++)
 			undoPits[i] = pits[i].clone();
 	}
-		
+
 	/**
 	 * Check if the last stone that a player drops is in his own empty pit.
 	 * If so, the player will take that stone and all of his opponent's
@@ -199,7 +200,7 @@ public class Mancala
 			pit = 0;
 		return pit;
 	}
-	
+
 	/**
 	 * Get the next size of the players
 	 * @param side a size of the players
@@ -211,7 +212,7 @@ public class Mancala
 			side = 0;
 		return side;
 	}
-	
+
 	/**
 	 * Checks for the active player
 	 * @return the active player
@@ -220,7 +221,7 @@ public class Mancala
 	{
 		return "Player "+(activePlayer+1)+"'s Move";
 	}
-	
+
 	/**
 	 * Checks how many undo moves is possible
 	 * @return undo count
