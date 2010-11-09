@@ -1,5 +1,3 @@
-import java.util.*;
-
 /**
  * A Mancala object
  * @author Group Teamedward
@@ -78,13 +76,13 @@ public class Mancala
 	 * Offer an undo of what a player has just chosen.
 	 * @param side which player
 	 */
-	public void undo(int side)
+	public void undo()
 	{
-		if (undoCount[side] >= UNDO_MAX)
+		if (undoCount[nextSide(activePlayer)] >= UNDO_MAX)
 			return;
 		pits = undoPits;
 		mancalas = undoMancalas;
-		++undoCount[side];
+		++undoCount[nextSide(activePlayer)];
 	}
 
 	public void /*ChangeEvent*/ somethingChanged()
@@ -155,7 +153,7 @@ public class Mancala
 			 empty = 0;
 			 for (int j = 0; j < BOARD_LENGTH; j++)
 			 {
-					if (pits[i][j] == 0)
+					if (checkPits[i][j] == 0)
 						 empty++;
 			 }
 
@@ -212,6 +210,16 @@ public class Mancala
 		if (++side >= N_PLAYERS)
 			side = 0;
 		return side;
+	}
+	
+	public String getPlayer()
+	{
+		return "Player "+(activePlayer+1)+"'s Move";
+	}
+	
+	public int getUndoCount()
+	{
+		return UNDO_MAX - undoCount[nextSide(activePlayer)];
 	}
 
 	private int[][] pits;

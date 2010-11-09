@@ -2,6 +2,7 @@ import java.util.*;
 
 public class MancalaCLI
 {
+	/**
 	public static void main(String[] args)
 	{
 		System.out.println("Mancala CLI");
@@ -48,5 +49,6 @@ public class MancalaCLI
 	private Mancala game;
 	private int[][] pits;
 	private int[] mancalas;
+	*/
 }
 
