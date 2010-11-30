@@ -22,6 +22,7 @@ public class MancalaGUI implements MouseListener
 		}
 	}
 	
+	@Override
 	public void mouseClicked(MouseEvent e)
 	{
 		rects = board.getPitRectangles();
