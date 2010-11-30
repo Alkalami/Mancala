@@ -23,6 +23,7 @@ public class Mancala
 				pits[p][col] = stones;
 		}
 		activePlayer = 0;
+		activeUndoPlayer = 0;
 		for (int i = 0; i < undoCount.length; i++)
 			 undoCount[i] = 0;
 		setUndoBuffer();
@@ -43,6 +44,7 @@ public class Mancala
 			setUndoBuffer();
 			//resets other player's undo count
 			undoCount[nextSide(side)] = 0;
+			activeUndoPlayer = side;
 		}
 
 
@@ -79,11 +81,26 @@ public class Mancala
 	 */
 	public void undo()
 	{
+		if (activePlayer == activeUndoPlayer && getUndoCount() == UNDO_MAX)
+			return;
+		if (activePlayer == activeUndoPlayer && undoCount[nextSide(activePlayer)] == 0)
+			return;
+		if (undoCount[activeUndoPlayer] == UNDO_MAX)
+			return;
+		pits = undoPits;
+		mancalas = undoMancalas;
+		undoCount[nextSide(activePlayer)]++;
+		activePlayer = nextSide(activePlayer);
+		/**
+		if (undoCount[nextSide(activePlayer)] == 0 && undoCount[activePlayer] != UNDO_MAX)
+			return;
 		if (undoCount[nextSide(activePlayer)] >= UNDO_MAX)
 			return;
 		pits = undoPits;
 		mancalas = undoMancalas;
-		++undoCount[nextSide(activePlayer)];
+		undoCount[nextSide(activePlayer)]++;
+		activePlayer = nextSide(activePlayer);
+		*/
 	}
 
 	public void /*ChangeEvent*/ somethingChanged()
@@ -212,6 +229,11 @@ public class Mancala
 			side = 0;
 		return side;
 	}
+	
+	public int getActive()
+	{
+		return activePlayer;
+	}
 
 	/**
 	 * Checks for the active player
@@ -228,7 +250,12 @@ public class Mancala
 	 */
 	public int getUndoCount()
 	{
-		return UNDO_MAX - undoCount[nextSide(activePlayer)];
+		return UNDO_MAX - undoCount[activeUndoPlayer];
+		/**if (undoCount[activePlayer] != UNDO_MAX) {
+			return UNDO_MAX - undoCount[nextSide(activePlayer)];
+		}
+		return UNDO_MAX - undoCount[activePlayer];
+		*/
 	}
 
 	private int[][] pits;
@@ -236,6 +263,7 @@ public class Mancala
 	private int[] mancalas;
 	private int[] undoMancalas;
 	private int activePlayer; // Change to turn checking var name;
+	private int activeUndoPlayer;
 	private int[] undoCount;
 
 	public static final int N_PLAYERS = 2;
