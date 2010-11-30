@@ -1,16 +1,23 @@
 import java.awt.*;
 
-public class Board extends JComponent implements MouseListener
+public class Board extends JComponent
 {
 	public Board(BoardLayout layout)
 	{
 		this.layout = layout;
 	}
 
-	public void refresh(int[][] pits, int[] manacalas);
+  public void refresh(int[][] pits, int[] manacalas)
+  {
+    for (int r = 0; r < pits.length(); r++)
+    {
+      drawMancala(mancalas[r]);
+      for (int c = 0; c < pits[r].length(); c++)
+      {
+        drawPit(pits[r][c]);
+      }
+    }
+  }
 
-	public mouseClicked(MouseEvent e)
-	{
-		for (int i = 0; i < Mancala.N_PLAYERS;
-	}
+	private BoardLayout layout;
 }
