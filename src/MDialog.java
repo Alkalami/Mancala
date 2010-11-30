@@ -1,20 +1,25 @@
+import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MDialog extends JFrame
+public class MDialog extends JDialog
 {
-	private static JFrame frame;
+	private static Container frame;
 	private static int stoneCount = 3;
-	private static int layout = 1;
-	private static boolean start = false;
+	private static BoardLayout[] layouts;
+	private static BoardLayout layout;
 	private int width = 500;
 	private int height = 300;
 	
-	public MDialog()
+	public MDialog(Frame owner)
 	{
-		frame = new JFrame("New Mancala Game");
-		frame.setSize(width,height);
+		super(owner, true);
+		layouts = {new BoardLayout(), new BoardLayout(), new BoardLayout(), new BoardLayout()};
+		
+		frame = getContentPane();
+		setSize(width,height);
 		JPanel stonePanel = new JPanel();
 		JPanel layoutPanel = new JPanel();
 
@@ -54,7 +59,15 @@ public class MDialog extends JFrame
 		layout2.addActionListener(setLayout(2));
 		layout3.addActionListener(setLayout(3));
 		layout4.addActionListener(setLayout(4));
-		start.addActionListener(startGame());
+		start.addActionListener(new
+		ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+		      frame.setVisible(false);
+		      dispose();
+			}
+		});
 		
 		Box box1 = Box.createHorizontalBox();
 		box1.add(chooseStones);
@@ -75,9 +88,13 @@ public class MDialog extends JFrame
 		frame.add(box1);
 		frame.add(box2);
 		frame.add(box3);
-      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.setVisible(true);
-      frame.setResizable(false);
+      setResizable(false);
+	}
+	
+	public String showDialog()
+	{
+		setVisible(true);
+		return ""+stoneCount;//? button1.getText() : button2.getText();
 	}
 	
 	public static ActionListener setStoneCount(final int stoneNumber)
@@ -99,20 +116,7 @@ public class MDialog extends JFrame
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				layout = layoutNumber;
-			}
-		};
-	}
-	
-	public static ActionListener startGame()
-	{
-		return new
-		ActionListener()
-		{
-			public void actionPerformed(ActionEvent event)
-			{
-				start = true;
-		      frame.setVisible(false);
+				layout = layouts[layoutNumber];
 			}
 		};
 	}
@@ -122,13 +126,8 @@ public class MDialog extends JFrame
 		return stoneCount;
 	}
 	
-	public int layoutNumber()
+	public BoardLayout layoutNumber()
 	{
 		return layout;
-	}
-	
-	public boolean start()
-	{
-		return start;
 	}
 }
