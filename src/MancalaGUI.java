@@ -7,19 +7,10 @@ public class MancalaGUI implements MouseListener
 	Mancala game;
 	Board layout;
 	
-	public void gameSetup(int stones, int layoutChoice)
+	public MancalaGUI(int stones, BoardLayout layoutChoice)
 	{
 		game = new Mancala(stones);
-		switch (layoutChoice) {
-			case 1: layout = new Board(BoardLayout layout1);
-					  break;
-			case 2: layout = new Board(BoardLayout layout2);
-					  break;
-			case 3: layout = new Board(BoardLayout layout3);
-					  break;
-			case 4: layout = new Board(BoardLayout layout4);
-					  break;
-		}
+		layout = new Board(layoutChoice);
 	}
 	
 	@Override
