@@ -11,8 +11,8 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener
 	private Board board;
 	private JLabel player;
 	private JButton undoButton;
-	private int width = 500;
-	private int height = 300;
+	private int width = 700;
+	private int height = 400;
 	int move = 0; // delete when clicking is implemented
 	
 	/**
@@ -27,11 +27,11 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener
 		game.addChangeListener(this);
 		
 		setSize(width,height);
-		board.setPreferredSize(new Dimension(450,225));
+		board.setPreferredSize(new Dimension(450,325));
 		
 		// Displays the active player
       player = new JLabel(game.getPlayer());
-      player.setPreferredSize(new Dimension(300,10));//350,10));
+      player.setPreferredSize(new Dimension(450,10));//500,10));
       
       JButton test = new JButton("Test");
       test.addActionListener(move());
@@ -90,6 +90,8 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener
 	 */
 	public void mouseClicked(MouseEvent e)
 	{
+		if (game.isGameOver())
+			return;
 		Rectangle2D.Double[][] rects = board.getPitRectangles();
 		for (int row = 0; row < Mancala.N_PLAYERS; row++)
 			for (int col = 0; col < Mancala.BOARD_LENGTH; col++)
@@ -106,13 +108,16 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener
 
 	/**
 	 * When a change has been made in the data, then the board
-	 * will be updated and repainted
+	 * will be updated and repainted. If the game has ended
+	 * a dialog will state the winner and freeze any moves
 	 */
 	public void stateChanged(ChangeEvent event)
 	{
 		//repaint board
 		if (game.isGameOver()) {
 			// popup dialog and state winner
+			JOptionPane.showMessageDialog(this, "Player "+game.getActive()+
+					" is the winner!", "Game Over", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	

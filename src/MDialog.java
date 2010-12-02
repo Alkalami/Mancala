@@ -7,7 +7,8 @@ import javax.swing.*;
 public class MDialog extends JDialog
 {
 	private Container frame;
-	private int stoneCount = 3;
+	private int stoneCount;
+	// change elements to actual layouts
 	private BoardLayout[] layouts = {new BoardLayout(), new BoardLayout(), new BoardLayout(), new BoardLayout()};
 	private BoardLayout layout;
 	private int width = 500;
@@ -20,6 +21,8 @@ public class MDialog extends JDialog
 	public MDialog(Frame owner)
 	{
 		super(owner, true);
+		stoneCount = 3;
+		layout = layouts[0];
 		
 		frame = getContentPane();
 		setSize(width,height);
@@ -68,7 +71,7 @@ public class MDialog extends JDialog
 			// closes the popup dialog
 			public void actionPerformed(ActionEvent event)
 			{
-		      frame.setVisible(false);
+				frame.setVisible(false);
 		      dispose();
 			}
 		});
