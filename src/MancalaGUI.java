@@ -6,19 +6,11 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class MancalaGUI implements MouseListener
+public class MancalaGUI implements MouseListener, ChangeListener
 {
 	Mancala game;
 	Board board;
-	int width = 500;
-	int height = 300; 
-	
-	public MancalaGUI(int stones, BoardLayout layoutChoice)
-	{
-		game = new Mancala(stones);
-		board = new Board(layoutChoice);
-		
-		ChangeListener listener = new
+	ChangeListener listener = new
 		ChangeListener()
 		{
 			public void stateChanged(ChangeEvent event)
@@ -54,12 +46,16 @@ public class MancalaGUI implements MouseListener
 			}
 	}
 
-	public void mouseEntered(MouseEvent arg0) {}
+	@Override
+	public void mouseEntered(MouseEvent e) { }
 
-	public void mouseExited(MouseEvent arg0) {}
+	@Override
+	public void mouseExited(MouseEvent e) { }
 
-	public void mousePressed(MouseEvent arg0) {}
+	@Override
+	public void mousePressed(MouseEvent e) { }
 
-	public void mouseReleased(MouseEvent arg0) {}
+	@Override
+	public void mouseReleased(MouseEvent e) { }
 }
 

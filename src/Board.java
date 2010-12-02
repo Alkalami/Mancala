@@ -37,5 +37,13 @@ public class Board extends JComponent
 		return layout.getPitRectangles();
 	}
 
+	public void paintComponent(Graphics g)
+	{
+		Graphics2D g2 = (Graphics2D) g;
+		
+	}
+	
+	private int[][] pits;
+	private int[] mancalas;
 	private BoardLayout layout;
 }
