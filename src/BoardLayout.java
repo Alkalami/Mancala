@@ -1,3 +1,6 @@
+import java.awt.*;
+import java.awt.geom.*;
+
 public class BoardLayout
 {
 	public BoardLayout() {}
@@ -33,6 +36,26 @@ public class BoardLayout
 		stoneImage = stoneImg;
 		mancalaImage = mancalaImg;
 	}
+	
+	public Image getStoneImage()
+	{
+		return stoneImage;
+	}
+	
+	public Image getPitImage()
+	{
+		return pitImage;
+	}
+	
+	public Image getMancalaImage()
+	{
+		return mancalaImage;
+	}
+	
+	public Rectangle2D.Double[][] getPitRectangles()
+	{
+		return pitRects;
+	}
 
 	private Rectangle2D.Double[][] pitRects;
 	private Rectangle2D.Double[] mancalaRects;
@@ -40,3 +63,4 @@ public class BoardLayout
 	private Image pitImage;
 	private Image mancalaImage;
 
+}

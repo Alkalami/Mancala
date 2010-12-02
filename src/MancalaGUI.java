@@ -1,5 +1,7 @@
 import java.awt.event.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -7,12 +9,14 @@ import javax.swing.event.ChangeListener;
 public class MancalaGUI implements MouseListener
 {
 	Mancala game;
-	Board layout;
+	Board board;
+	int width = 500;
+	int height = 300; 
 	
 	public MancalaGUI(int stones, BoardLayout layoutChoice)
 	{
 		game = new Mancala(stones);
-		layout = new Board(layoutChoice);
+		board = new Board(layoutChoice);
 		
 		ChangeListener listener = new
 		ChangeListener()
@@ -23,47 +27,39 @@ public class MancalaGUI implements MouseListener
 			}
 		};
       game.addChangeListener(listener);
+      
+      JFrame frame = new JFrame();
+      frame.setSize(width,height);
+      frame.setLayout(new FlowLayout());
+      frame.add(board);
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.setVisible(true);
+      frame.setResizable(false);
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		rects = board.getPitRectangles();
+		Rectangle2D.Double[][] rects = board.getPitRectangles();
 		for (int row = 0; row < Mancala.N_PLAYERS; row++)
 			for (int col = 0; col < Mancala.BOARD_LENGTH; col++)
 			{
-				if rect[row][col].contains(e.getPoint())
+				if (rects[row][col].contains(e.getPoint()))
 					try { game.move(row,col); }
 					catch (IllegalArgumentException ex)
 					{
-						JOptionPane.showMessageDialog(this, ex.getMessage(),
+						JOptionPane.showMessageDialog(null, ex.getMessage(),
 								"Invalid Move", JOptionPane.WARNING_MESSAGE);
 					}
 			}
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent arg0) {}
 
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent arg0) {}
 
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent arg0) {}
 
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseReleased(MouseEvent arg0) {}
 }
 
