@@ -1,66 +1,21 @@
 import java.awt.*;
 import java.awt.geom.*;
 
-public class BoardLayout
+public abstract class BoardLayout(int nPlayers, int boardLength)
 {
-	public BoardLayout() {}
-
-	public void setPitRectangles(Rectangle2D.Double[][] rects)
+	public BoardLayout(int width, int height, int nPlayers, int boardLength)
 	{
-		pitRects = rects;
+		this.width = width;
+		this.height = height;
+		pitRects = new Rectangle2D.Double[nPlayers][boardLength];
 	}
 
-	public void setMancalaRectangles(Rectangle2D.Double[] rects)
-	{
-		mancalaRects = rects;
-	}
+	public abstract void redraw(Graphics2D g2, int[][] pits, int[] mancalas);
 
-	public void setStoneImage(Image img)
-	{
-		stoneImage = img;
-	}
+	public Rectangle2D.Double[][] getPitRects() { return pitRects; }
 
-	public void setPitImage(Image img)
-	{
-		pitImage = img;
-	}
-
-	public void setMancalaImage(Image img)
-	{
-		mancalaImage = img;
-	}
-
-	public void setImages(Image pitImg, Image stoneImg, Image mancalaImg)
-	{
-		pitImage = pitImg;
-		stoneImage = stoneImg;
-		mancalaImage = mancalaImg;
-	}
-	
-	public Image getStoneImage()
-	{
-		return stoneImage;
-	}
-	
-	public Image getPitImage()
-	{
-		return pitImage;
-	}
-	
-	public Image getMancalaImage()
-	{
-		return mancalaImage;
-	}
-	
-	public Rectangle2D.Double[][] getPitRectangles()
-	{
-		return pitRects;
-	}
-
-	private Rectangle2D.Double[][] pitRects;
-	private Rectangle2D.Double[] mancalaRects;
-	private Image stoneImage;
-	private Image pitImage;
-	private Image mancalaImage;
-
+	protected Rectangle2D.Double[][] pitRects;
+	protected int width;
+	protected int height;
 }
+

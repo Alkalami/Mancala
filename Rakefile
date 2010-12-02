@@ -3,7 +3,7 @@ require 'rake/clean'
 SRC = FileList["src/*.java"]
 CLEAN.include("bin/*.class")
 
-JCLASSES = %w{Mancala MancalaGUI MancalaCLI Board}
+JCLASSES = %w{Board BoardLayout GeomBoard MDialog Mancala MancalaGUI MancalaCLI}
 
 JCLASSES.each do |jclass|
 	file "bin/#{jclass}.class" => [ "src/#{jclass}.java"] do

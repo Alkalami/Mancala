@@ -10,39 +10,18 @@ public class Board extends JComponent
 		this.layout = layout;
 	}
 
-	public void refresh(int[][] pits, int[] mancalas)
-	{
-		for (int r = 0; r < pits.length; r++)
-		{
-			drawMancala(mancalas[r]);
-			for (int c = 0; c < pits[r].length; c++)
-			{
-				drawPit(pits[r][c]);
-			}
-		}
-	}
-
-	private void drawPit(int i)
-	{
-		
-	}
-
-	private void drawMancala(int i)
-	{
-		
-	}
-	
 	public Rectangle2D.Double[][] getPitRectangles()
 	{
-		return layout.getPitRectangles();
+		return layout.getPitRects();
 	}
 
 	public void paintComponent(Graphics g)
 	{
-		Graphics2D g2 = (Graphics2D) g;
-		
+		/* Do we need this I sort of think we don't. */
+		// super.paintComponent(g);
+		layout.redraw((Graphics2D) g, pits, mancalas);
 	}
-	
+
 	private int[][] pits;
 	private int[] mancalas;
 	private BoardLayout layout;
