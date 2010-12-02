@@ -3,7 +3,7 @@ import java.util.*;
 import javax.swing.event.*;
 
 /**
- * An object modelling a game of mancala.
+ * An object modeling a game of mancala.
  * With hooks for GUI or CLI representation.
  * @author Team Edward.
  *
@@ -21,6 +21,7 @@ public class Mancala
 		undoCount = new int[N_PLAYERS];
 		undoPits = new int[N_PLAYERS][];
 		listeners = new ArrayList<ChangeListener>();
+		gameOver = false;
 		for (int p = 0; p < N_PLAYERS; p++)
 		{
 			mancalas[p] = 0;
@@ -81,8 +82,7 @@ public class Mancala
 	}
 
 	/**
-	 * Offer an undo of what a player has just chosen.
-	 * @param side which player
+	 * Offer an undo of what the previous player has just done.
 	 */
 	public void undo()
 	{
@@ -96,14 +96,22 @@ public class Mancala
 		mancalas = undoMancalas;
 		undoCount[nextSide(activePlayer)]++;
 		activePlayer = nextSide(activePlayer);
+		somethingChanged();
 	}
 
+	/**
+	 * Attaches a listener to the mancala to update changes on the board
+	 * @param listener a listener to update changes
+	 */
 	public void addChangeListener(ChangeListener listener)
    {
       listeners.add(listener);
    }
 	
-	public void /*ChangeEvent*/ somethingChanged()
+	/**
+	 * Updates the listeners so the view knows that a change has been made
+	 */
+	public void somethingChanged()
 	{
 		for (ChangeListener listener : listeners)
       {
@@ -166,7 +174,6 @@ public class Mancala
 		else
 		{
 			 activePlayer = nextSide(activePlayer);
-			 //somethingChanged();
 		}
 
       // checks if either side is empty and ends the game
@@ -183,39 +190,53 @@ public class Mancala
 
 			 if (empty == BOARD_LENGTH)
 			 {
-					endGame(nextSide(i));
+					endGame();
 					break;
 			 }
 		}
+		somethingChanged();
 	}
 	
 	/**
-	 * End the game and check who wins
-	 * @param side one side of the players
-	 * @return winner
+	 * Determines if the game is over
+	 * @return whether the game is over or not
 	 */
-	private int endGame(int side)
+	public boolean isGameOver()
 	{
-		 int[] winner = getMancalas();
-		 int[][] checkPits = getPits();
+		return gameOver;
+	}
+	
+	/**
+	 * Checks who has the most stones in the mancala and determine the winner
+	 * @return the winner of the game
+	 */
+	public int winner()
+	{
+		// determines the winner
+		if (mancalas[activePlayer] > mancalas[nextSide(activePlayer)])
+			return activePlayer;
+		else
+			return nextSide(activePlayer);
+	}
+	
+	/**
+	 * Empties the pits and moves them to the corresponding mancalas
+	 */
+	private void endGame()
+	{
+		gameOver = true;
 		 
-		 // empties the remainder of the board
-		 for (int i = 0; i < BOARD_LENGTH; i++) {
-				winner[side] += checkPits[side][i];
-				checkPits[side][i] = 0;
-		 }
-		 
-		 // determines the winner
-		 if (winner[activePlayer] > winner[nextSide(activePlayer)])
-				return activePlayer;
-		 else
-				return nextSide(activePlayer);
+		// empties the remainder of the board
+		for (int i = 0; i < BOARD_LENGTH; i++) {
+			mancalas[nextSide(activePlayer)] += pits[nextSide(activePlayer)][i];
+			pits[nextSide(activePlayer)][i] = 0;
+		}
 	}
 
 	/**
 	 * Go to next pit
 	 * @param pit a pit
-	 * @return a pit
+	 * @return the next pit
 	 */
 	private int nextPit(int pit)
 	{
@@ -236,6 +257,10 @@ public class Mancala
 		return side;
 	}
 	
+	/**
+	 * Gets the active player
+	 * @return the active player
+	 */
 	public int getActive()
 	{
 		return activePlayer;
@@ -243,7 +268,7 @@ public class Mancala
 
 	/**
 	 * Checks for the active player
-	 * @return the active player
+	 * @return the string representation of the active player
 	 */
 	public String getPlayer()
 	{
@@ -267,6 +292,7 @@ public class Mancala
 	private int activeUndoPlayer;
 	private int[] undoCount;
 	private ArrayList<ChangeListener> listeners;
+	private boolean gameOver;
 
 	public static final int N_PLAYERS = 2;
 	public static final int BOARD_LENGTH = 6;

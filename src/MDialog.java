@@ -6,13 +6,17 @@ import javax.swing.*;
 
 public class MDialog extends JDialog
 {
-	private static Container frame;
-	private static int stoneCount = 3;
-	private static BoardLayout[] layouts = {new BoardLayout(), new BoardLayout(), new BoardLayout(), new BoardLayout()};
-	private static BoardLayout layout;
+	private Container frame;
+	private int stoneCount = 3;
+	private BoardLayout[] layouts = {new BoardLayout(), new BoardLayout(), new BoardLayout(), new BoardLayout()};
+	private BoardLayout layout;
 	private int width = 500;
 	private int height = 300;
 	
+	/**
+	 * Creates a popup dialog to choose number of stones and the layout
+	 * @param owner a frame for the dialog
+	 */
 	public MDialog(Frame owner)
 	{
 		super(owner, true);
@@ -61,6 +65,7 @@ public class MDialog extends JDialog
 		start.addActionListener(new
 		ActionListener()
 		{
+			// closes the popup dialog
 			public void actionPerformed(ActionEvent event)
 			{
 		      frame.setVisible(false);
@@ -68,16 +73,19 @@ public class MDialog extends JDialog
 			}
 		});
 		
+		// stone choices
 		Box box1 = Box.createHorizontalBox();
 		box1.add(chooseStones);
 		box1.add(Box.createHorizontalStrut(215));
 	   box1.add(stonePanel);
 	   
+	   // layout choices
 	   Box box2 = Box.createHorizontalBox();
 	   box2.add(chooseLayout);
 	   box2.add(Box.createHorizontalStrut(0));
 	   box2.add(layoutPanel);
 	   
+	   // start button
 	   Box box3 = Box.createHorizontalBox();
 	   box3.add(Box.createVerticalStrut(330));
 	   box3.add(Box.createHorizontalStrut(350));
@@ -90,13 +98,22 @@ public class MDialog extends JDialog
       setResizable(false);
 	}
 	
+	/**
+	 * Allows the dialog to popup and be visible
+	 * @return a string representation of the popup dialog
+	 */
 	public String showDialog()
 	{
 		setVisible(true);
 		return "Startup Dialog";
 	}
 	
-	public static ActionListener setStoneCount(final int stoneNumber)
+	/**
+	 * A listener to choose the stone count
+	 * @param stoneNumber the initial stone count
+	 * @return an anonymous ActionListener class
+	 */
+	public ActionListener setStoneCount(final int stoneNumber)
 	{
 		return new
 		ActionListener()
@@ -108,7 +125,12 @@ public class MDialog extends JDialog
 		};
 	}
 	
-	public static ActionListener setLayout(final int layoutNumber)
+	/**
+	 * A listener to choose the layout
+	 * @param layoutNumber the layout number
+	 * @return an anonymous ActionListener class
+	 */
+	public ActionListener setLayout(final int layoutNumber)
 	{
 		return new
 		ActionListener()
@@ -120,11 +142,19 @@ public class MDialog extends JDialog
 		};
 	}
 	
+	/**
+	 * Gets the stone count
+	 * @return the stone count
+	 */
 	public int stoneNumber()
 	{
 		return stoneCount;
 	}
 	
+	/**
+	 * Gets the layout number
+	 * @return the layout number
+	 */
 	public BoardLayout layoutNumber()
 	{
 		return layout;
