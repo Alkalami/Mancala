@@ -8,7 +8,7 @@ public class MDialog extends JDialog
 {
 	private static Container frame;
 	private static int stoneCount = 3;
-	private static BoardLayout[] layouts;
+	private static BoardLayout[] layouts = {new BoardLayout(), new BoardLayout(), new BoardLayout(), new BoardLayout()};
 	private static BoardLayout layout;
 	private int width = 500;
 	private int height = 300;
@@ -16,7 +16,6 @@ public class MDialog extends JDialog
 	public MDialog(Frame owner)
 	{
 		super(owner, true);
-		layouts = {new BoardLayout(), new BoardLayout(), new BoardLayout(), new BoardLayout()};
 		
 		frame = getContentPane();
 		setSize(width,height);
@@ -94,7 +93,7 @@ public class MDialog extends JDialog
 	public String showDialog()
 	{
 		setVisible(true);
-		return ""+stoneCount;//? button1.getText() : button2.getText();
+		return "Startup Dialog";
 	}
 	
 	public static ActionListener setStoneCount(final int stoneNumber)

@@ -1,3 +1,7 @@
+import java.util.*;
+
+import javax.swing.event.*;
+
 /**
  * An object modelling a game of mancala.
  * With hooks for GUI or CLI representation.
@@ -16,6 +20,7 @@ public class Mancala
 		mancalas = new int[N_PLAYERS];
 		undoCount = new int[N_PLAYERS];
 		undoPits = new int[N_PLAYERS][];
+		listeners = new ArrayList<ChangeListener>();
 		for (int p = 0; p < N_PLAYERS; p++)
 		{
 			mancalas[p] = 0;
@@ -91,20 +96,21 @@ public class Mancala
 		mancalas = undoMancalas;
 		undoCount[nextSide(activePlayer)]++;
 		activePlayer = nextSide(activePlayer);
-		/**
-		if (undoCount[nextSide(activePlayer)] == 0 && undoCount[activePlayer] != UNDO_MAX)
-			return;
-		if (undoCount[nextSide(activePlayer)] >= UNDO_MAX)
-			return;
-		pits = undoPits;
-		mancalas = undoMancalas;
-		undoCount[nextSide(activePlayer)]++;
-		activePlayer = nextSide(activePlayer);
-		*/
 	}
 
+	public void addChangeListener(ChangeListener listener)
+   {
+      listeners.add(listener);
+   }
+	
 	public void /*ChangeEvent*/ somethingChanged()
-	{ return; }
+	{
+		for (ChangeListener listener : listeners)
+      {
+         listener.stateChanged(new ChangeEvent(this));
+
+      }
+	}
 
 	/**
 	 * Get the player's pits
@@ -251,11 +257,6 @@ public class Mancala
 	public int getUndoCount()
 	{
 		return UNDO_MAX - undoCount[activeUndoPlayer];
-		/**if (undoCount[activePlayer] != UNDO_MAX) {
-			return UNDO_MAX - undoCount[nextSide(activePlayer)];
-		}
-		return UNDO_MAX - undoCount[activePlayer];
-		*/
 	}
 
 	private int[][] pits;
@@ -265,6 +266,7 @@ public class Mancala
 	private int activePlayer; // Change to turn checking var name;
 	private int activeUndoPlayer;
 	private int[] undoCount;
+	private ArrayList<ChangeListener> listeners;
 
 	public static final int N_PLAYERS = 2;
 	public static final int BOARD_LENGTH = 6;
