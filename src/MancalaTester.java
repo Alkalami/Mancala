@@ -6,9 +6,8 @@ public class MancalaTester
 {
 	public static void main(String[] args)
 	{
-		MDialog popup = new MDialog(null);
-		String userChoice = popup.showDialog();
-		
-		MancalaGUI gui = new MancalaGUI(popup.stoneNumber(), popup.layoutNumber());
+
+		BoardLayout[] layouts = { new GeomLayout(Mancala.N_PLAYERS, Mancala.BOARD_LENGTH) };
+		MancalaGUI gui = new MancalaGUI(layouts);
 	}
 }

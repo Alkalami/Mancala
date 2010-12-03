@@ -3,12 +3,16 @@ require 'rake/clean'
 SRC = FileList["src/*.java"]
 CLEAN.include("bin/*.class")
 
-JCLASSES = %w{Board BoardLayout GeomBoard MDialog Mancala MancalaGUI MancalaCLI}
+JCLASSES = %w{Board BoardLayout GeomLayout MDialog Mancala MancalaGUI MancalaCLI}
 
 JCLASSES.each do |jclass|
 	file "bin/#{jclass}.class" => [ "src/#{jclass}.java"] do
 		sh "javac -cp bin/ -d bin/ src/#{jclass}.java"
 	end
+end
+
+task :makeall do
+	sh "javac -cp bin/ -d bin/ src/*.java"
 end
 
 file "bin/MancalaGUI.class" => ["bin/Mancala.class"]

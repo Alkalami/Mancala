@@ -15,6 +15,12 @@ public class Board extends JComponent
 		return layout.getPitRects();
 	}
 
+	public void setBoardSize(int w, int h)
+	{
+		setPreferredSize(new Dimension(w,h));
+		layout.setSize(w,h);
+	}
+
 	public void paintComponent(Graphics g)
 	{
 		/* Do we need this I sort of think we don't. */

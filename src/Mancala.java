@@ -86,6 +86,8 @@ public class Mancala
 	 */
 	public void undo()
 	{
+		if (isGameOver())
+			return;
 		if (activePlayer == activeUndoPlayer && getUndoCount() == UNDO_MAX)
 			return;
 		if (activePlayer == activeUndoPlayer && undoCount[nextSide(activePlayer)] == 0)
@@ -190,7 +192,7 @@ public class Mancala
 
 			 if (empty == BOARD_LENGTH)
 			 {
-					endGame();
+					endGame(nextSide(i));
 					break;
 			 }
 		}
@@ -207,30 +209,22 @@ public class Mancala
 	}
 	
 	/**
-	 * Checks who has the most stones in the mancala and determine the winner
-	 * @return the winner of the game
+	 * Empties the pits and moves them to the corresponding mancala
+	 * afterwards it sets the winner as the active player
 	 */
-	public int winner()
-	{
-		// determines the winner
-		if (mancalas[activePlayer] > mancalas[nextSide(activePlayer)])
-			return activePlayer;
-		else
-			return nextSide(activePlayer);
-	}
-	
-	/**
-	 * Empties the pits and moves them to the corresponding mancalas
-	 */
-	private void endGame()
+	private void endGame(int side)
 	{
 		gameOver = true;
 		 
 		// empties the remainder of the board
 		for (int i = 0; i < BOARD_LENGTH; i++) {
-			mancalas[nextSide(activePlayer)] += pits[nextSide(activePlayer)][i];
-			pits[nextSide(activePlayer)][i] = 0;
+			mancalas[side] += pits[side][i];
+			pits[side][i] = 0;
 		}
+		
+		// sets the winner as the active player
+		if (mancalas[activePlayer] < mancalas[nextSide(activePlayer)])
+			activePlayer = nextSide(activePlayer);
 	}
 
 	/**

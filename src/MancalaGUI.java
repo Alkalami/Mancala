@@ -5,40 +5,52 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class MancalaGUI extends JFrame implements MouseListener, ChangeListener
+public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
+			 ActionListener
 {
 	private Mancala game;
 	private Board board;
 	private JLabel player;
 	private JButton undoButton;
-	private int width = 500;
-	private int height = 300;
+	private static final int WIDTH = 700;
+	private static final int HEIGHT = 400;
+	private static final int BOARD_WIDTH = 450;
+	private static final int BOARD_HEIGHT = 325;
+
 	int move = 0; // delete when clicking is implemented
 	
 	/**
 	 * The view and frame that shows the mancala game visually
+	 */
+	public MancalaGUI(BoardLayout[] layouts)
+	{
+		makeDialog(layouts);
+	}
+
+	/**
+	 * Initalize the data model and start the mancala game
 	 * @param stones the initial stone count
 	 * @param layout the layout for the board to use
 	 */
-	public MancalaGUI(int stones, BoardLayout layout)
+	public void start(int stones, BoardLayout layout)
 	{
 		game = new Mancala(stones);
 		board = new Board(layout);
 		game.addChangeListener(this);
 		
-		setSize(width,height);
-		board.setPreferredSize(new Dimension(450,225));
+		setSize(WIDTH,HEIGHT);
+		board.setBoardSize(BOARD_WIDTH,BOARD_HEIGHT);
 		
 		// Displays the active player
       player = new JLabel(game.getPlayer());
-      player.setPreferredSize(new Dimension(300,10));//350,10));
+      player.setPreferredSize(new Dimension(450,10));//500,10));
       
       JButton test = new JButton("Test");
       test.addActionListener(move());
       
       // Displays the undo count 
 		undoButton = new JButton("Undo: "+game.getUndoCount());
-		undoButton.addActionListener(undo());
+		undoButton.addActionListener(this);
 		
 		setLayout(new FlowLayout());
 		add(board);
@@ -49,24 +61,6 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener
       setVisible(true);
       setResizable(false);
 	}
-	
-	/**
-	 * A listener to undo the last move made 
-	 * @return an anonymous ActionListener class
-	 */
-	public ActionListener undo()
-   {
-      return new
-      ActionListener()
-      {
-			public void actionPerformed(ActionEvent event)
-         {
-            game.undo();
-            player.setText(game.getPlayer());
-            undoButton.setText("Undo: "+game.getUndoCount());
-         }
-      };
-   }
 	
 	// REMOVE WHEN CLICKING IS ENABLED
 	public ActionListener move()
@@ -90,6 +84,8 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener
 	 */
 	public void mouseClicked(MouseEvent e)
 	{
+		if (game.isGameOver())
+			return;
 		Rectangle2D.Double[][] rects = board.getPitRectangles();
 		for (int row = 0; row < Mancala.N_PLAYERS; row++)
 			for (int col = 0; col < Mancala.BOARD_LENGTH; col++)
@@ -106,16 +102,36 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener
 
 	/**
 	 * When a change has been made in the data, then the board
-	 * will be updated and repainted
+	 * will be updated and repainted. If the game has ended
+	 * a dialog will state the winner and freeze any moves
 	 */
 	public void stateChanged(ChangeEvent event)
 	{
 		//repaint board
 		if (game.isGameOver()) {
 			// popup dialog and state winner
+			JOptionPane.showMessageDialog(this, "Player "+game.getActive()+
+					" is the winner!", "Game Over", JOptionPane.WARNING_MESSAGE);
 		}
 	}
-	
+
+	private void makeDialog(BoardLayout[] layouts)
+	{
+		MDialog popup = new MDialog(this, layouts);
+		popup.showDialog();
+		start(popup.stoneNumber(), popup.layoutNumber());
+	}
+
+	/**
+	 * A listener to undo the last move made 
+	 */
+	public void actionPerformed(ActionEvent event)
+	{
+		game.undo();
+		player.setText(game.getPlayer());
+		undoButton.setText("Undo: "+game.getUndoCount());
+ 	}
+
 	public void mouseEntered(MouseEvent e) { }
 
 	public void mouseExited(MouseEvent e) { }
