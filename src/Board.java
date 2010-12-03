@@ -23,9 +23,13 @@ public class Board extends JComponent
 
 	public void paintComponent(Graphics g)
 	{
-		/* Do we need this I sort of think we don't. */
-		// super.paintComponent(g);
 		layout.redraw((Graphics2D) g, pits, mancalas);
+	}
+
+	public void setData(int[][] pits, int[] mancalas)
+	{
+		this.pits = pits;
+		this.mancalas = mancalas;
 	}
 
 	private int[][] pits;

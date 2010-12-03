@@ -14,6 +14,12 @@ public class GeomLayout extends BoardLayout
 
 	public void redraw(Graphics2D g, int[][] pits, int[] mancalas)
 	{
+		System.out.println("DEBUG: Layout redraw action");
+		for (int[] ints : pits)
+			for (int i : ints)
+				System.out.print(i + ", ");
+		System.out.println();
+
 		// Draw the bounding boxes.
 		for (Rectangle2D.Double r : mRects)
 			g.draw(r);
@@ -21,6 +27,15 @@ public class GeomLayout extends BoardLayout
 			for (Rectangle2D.Double r : pitRects[i])
 				g.draw(r);
 			// Draw the stones.
+		for (int r = 0; r < pits.length; r++)
+		{
+			// Draw into mancalas
+			for (int c = 0; c < pits[r].length; c++)
+				for (int stone = pits[r][c]; stone > 0; stone--)
+					g.draw(new Ellipse2D.Double((int)pitRects[r][c].getX() + width / 32 * stone,(int)pitRects[r][c].getY(), width / 32, width / 32 ));
+					//g.draw(makeAStone((int)pitRects[r][c].getX(),(int)pitRects[r][c].getY()));
+		}
+
 	}
 
 	public void setSize(int w, int h)

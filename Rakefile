@@ -1,4 +1,5 @@
 require 'rake/clean'
+task :default => :makeall
 
 SRC = FileList["src/*.java"]
 CLEAN.include("bin/*.class")
@@ -19,7 +20,6 @@ file "bin/MancalaGUI.class" => ["bin/Mancala.class"]
 file "bin/MancalaCLI.class" => ["bin/Mancala.class"]
 
 task :main => "bin/MancalaGUI.class"
-task :default => :main
 
 task :run => [:main] do
 	sh "java -cp bin/ MancalaGUI"

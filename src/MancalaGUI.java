@@ -51,6 +51,9 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
       // Displays the undo count 
 		undoButton = new JButton("Undo: "+game.getUndoCount());
 		undoButton.addActionListener(this);
+
+		// Add Board's mouseListene6
+		board.addMouseListener(this);
 		
 		setLayout(new FlowLayout());
 		add(board);
@@ -107,12 +110,14 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 	 */
 	public void stateChanged(ChangeEvent event)
 	{
-		//repaint board
-		if (game.isGameOver()) {
-			// popup dialog and state winner
-			JOptionPane.showMessageDialog(this, "Player "+game.getActive()+
+		// popup dialog and state winner is the active player really the winner?
+		// TODO Change WARNING to something more appropriate. INFO?
+		System.out.println("DEBUG: Change Event Caught");
+		if (game.isGameOver())
+			JOptionPane.showMessageDialog(this, "Player "+game.getActive() +
 					" is the winner!", "Game Over", JOptionPane.WARNING_MESSAGE);
-		}
+		board.setData(game.getPits(), game.getMancalas());
+		board.repaint();
 	}
 
 	private void makeDialog(BoardLayout[] layouts)

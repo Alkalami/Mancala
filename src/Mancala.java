@@ -108,6 +108,8 @@ public class Mancala
 	public void addChangeListener(ChangeListener listener)
    {
       listeners.add(listener);
+			/* Update the newly added Controller */
+			somethingChanged();
    }
 	
 	/**
@@ -115,6 +117,7 @@ public class Mancala
 	 */
 	public void somethingChanged()
 	{
+		System.out.println("DEBUG: Change Event Emitted");
 		for (ChangeListener listener : listeners)
       {
          listener.stateChanged(new ChangeEvent(this));
