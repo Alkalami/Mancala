@@ -1,0 +1,17 @@
+# What Must Be Done Before We Submit #
+
+### Features and Tasks ###
+[ ] Implement two graphical layouts w/ images. @steven
+[ ] Javadoc all (public only?) methods.
+[ ] Update UML Class Diagram.
+[ ] Create UML Sequence Diagram
+[ ] Play like 50 games each to make sure it works well.
+
+### Bug Fixes ###
+[ ] Undo button does not always refresh properly. @andrew?
+[ ] Player Label does not refresh. @andrew?
+[ ] MDialog can be closed by the [X] button of the Window.
+	In .Net it is possible to remove this button. Maybe better to just show dialog
+	again until they pick something. Doubt she will try but you never know.
+[ ] It is currently possible to take a null turn. i.e. choose a pit with 0 stones.
+

@@ -12,13 +12,16 @@ public class GeomLayout extends BoardLayout
 		mRects = new Rectangle2D.Double[nPlayers];
 	}
 
+	@Override
 	public void redraw(Graphics2D g, int[][] pits, int[] mancalas)
 	{
 		System.out.println("DEBUG: Layout redraw action");
 		for (int[] ints : pits)
+		{
 			for (int i : ints)
 				System.out.print(i + ", ");
-		System.out.println();
+			System.out.println();
+		}
 
 		// Draw the bounding boxes.
 		for (Rectangle2D.Double r : mRects)
@@ -32,12 +35,14 @@ public class GeomLayout extends BoardLayout
 			// Draw into mancalas
 			for (int c = 0; c < pits[r].length; c++)
 				for (int stone = pits[r][c]; stone > 0; stone--)
-					g.draw(new Ellipse2D.Double((int)pitRects[r][c].getX() + width / 32 * stone,(int)pitRects[r][c].getY(), width / 32, width / 32 ));
-					//g.draw(makeAStone((int)pitRects[r][c].getX(),(int)pitRects[r][c].getY()));
+					g.draw(rotaryStone((int)pitRects[r][c].getX(),
+								(int)pitRects[r][c].getY(), (int)pitRects[r][c].getWidth(),
+								(int)pitRects[r][c].getHeight(), stone));
 		}
 
 	}
 
+	@Override
 	public void setSize(int w, int h)
 	{
 		super.setSize(w,h);
@@ -49,16 +54,27 @@ public class GeomLayout extends BoardLayout
 							r * height / 2, width / 8, height / 2);
 	}
 
-	private Ellipse2D.Double makeAStone(int xorigin, int yorigin)
+	/**
+	 * Creates an ellipse to use as a stone.
+	 * @param xorigin the x coordinate of the mancala or pit
+	 * @param yorigin the y coordinate of the mancala or pit
+	 * @param boxwidth the width of the mancala or pit
+	 * @param boxheight the height of the mancala or pit
+	 * @param n an integer to aid in seeding the random number generator
+	 */
+	private Ellipse2D.Double rotaryStone(int xorigin, int yorigin,
+			int boxwidth, int boxheight, int n)
 	{
+		rand.setSeed(n);
 		double a = rand.nextDouble() * 2 * Math.PI;
 		int stoneR = width / 32;
-		int ringCenterX = xorigin + stoneR;
-		int ringCenterY = yorigin + stoneR;
+		int ringCenterX = xorigin + boxwidth / 2;
+		int ringCenterY = yorigin + boxheight / 2;
 		int stoneCenterX = (int)(ringCenterX + stoneR * Math.cos(a));
 		int stoneCenterY = (int)(ringCenterY + stoneR * Math.sin(a));
-		return new Ellipse2D.Double(stoneCenterX - stoneCenterX * Math.sqrt(2),
-				stoneCenterY - stoneCenterY * Math.sqrt(2), stoneR, stoneR);
+		System.out.println("DEBUG: R: " + stoneR + " Rcos: " + stoneR * Math.cos(a) + " Rsin: " + Math.sin(a));
+		return new Ellipse2D.Double(stoneCenterX - stoneR * Math.sqrt(2),
+				stoneCenterY - stoneR * Math.sqrt(2), stoneR * 2, stoneR * 2);
 	}
 
 	private Rectangle2D.Double[] mRects;

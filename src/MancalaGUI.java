@@ -85,7 +85,7 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 	 * if yes then the board will be updated
 	 * if no then an warning message will be displayed
 	 */
-	public void mouseClicked(MouseEvent e)
+	public void mousePressed(MouseEvent e)
 	{
 		if (game.isGameOver())
 			return;
@@ -141,7 +141,7 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 
 	public void mouseExited(MouseEvent e) { }
 
-	public void mousePressed(MouseEvent e) { }
+	public void mouseClicked(MouseEvent e) { }
 
 	public void mouseReleased(MouseEvent e) { }
 
