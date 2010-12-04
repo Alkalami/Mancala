@@ -21,7 +21,7 @@ file "bin/MancalaCLI.class" => ["bin/Mancala.class"]
 
 task :main => "bin/MancalaGUI.class"
 
-task :run => [:main] do
-	sh "java -cp bin/ MancalaGUI"
+task :run => [:makeall] do
+	sh "java -cp bin/ MancalaTester"
 end
 
