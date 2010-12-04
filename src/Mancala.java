@@ -71,7 +71,8 @@ public class Mancala
 					--hand;
 					if (hand <= 0)
 					{
-						activePlayer = nextSide(side);
+						//activePlayer = nextSide(side);
+						somethingChanged();
 						return;
 					}
 				}
@@ -110,8 +111,8 @@ public class Mancala
 	public void addChangeListener(ChangeListener listener)
    {
       listeners.add(listener);
-			/* Update the newly added Controller */
-			somethingChanged();
+		/* Update the newly added Controller */
+		somethingChanged();
    }
 	
 	/**
@@ -174,10 +175,10 @@ public class Mancala
 		 */
 		if (side == activePlayer && pits[side][pit] == 1)
 		{
-			mancalas[side] += 1 + pits[nextSide(side)][BOARD_LENGTH - pit - 1];
-			//pits[side][pit] = 0;
-			pits[nextSide(side)][BOARD_LENGTH - pit - 1] = 0;
-		} 
+			mancalas[side] += 1 + pits[nextSide(side)][pit];
+			pits[side][pit] = 0;
+			pits[nextSide(side)][pit] = 0;
+		}
 		else
 		{
 			 activePlayer = nextSide(activePlayer);
