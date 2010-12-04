@@ -43,10 +43,7 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 		
 		// Displays the active player
       player = new JLabel(game.getPlayer());
-      player.setPreferredSize(new Dimension(450,10));//500,10));
-      
-      JButton test = new JButton("Test");
-      test.addActionListener(move());
+      player.setPreferredSize(new Dimension(550,10));
       
       // Displays the undo count 
 		undoButton = new JButton("Undo: "+game.getUndoCount());
@@ -58,27 +55,11 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 		setLayout(new FlowLayout());
 		add(board);
 		add(player);
-		add(test);
       add(undoButton);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setVisible(true);
       setResizable(false);
 	}
-	
-	// REMOVE WHEN CLICKING IS ENABLED
-	public ActionListener move()
-   {
-      return new
-      ActionListener()
-      {
-         public void actionPerformed(ActionEvent event)
-         {
-            game.move(game.getActive(),move++);
-            player.setText(game.getPlayer());
-            undoButton.setText("Undo: "+game.getUndoCount());
-         }
-      };
-   }
 	
 	/**
 	 * Checks to see if the player made a valid move
@@ -94,7 +75,11 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 			for (int col = 0; col < Mancala.BOARD_LENGTH; col++)
 			{
 				if (rects[row][col].contains(e.getPoint()))
-					try { game.move(row,col); }
+					try {
+						game.move(row,col);
+						player.setText(game.getPlayer());
+						undoButton.setText("Undo: "+game.getUndoCount());
+			      }
 					catch (IllegalArgumentException ex)
 					{
 						JOptionPane.showMessageDialog(this, ex.getMessage(),
@@ -123,6 +108,7 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 	private void makeDialog(BoardLayout[] layouts)
 	{
 		MDialog popup = new MDialog(this, layouts);
+		popup.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		popup.showDialog();
 		start(popup.stoneNumber(), popup.layoutNumber());
 	}

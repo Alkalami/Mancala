@@ -44,6 +44,8 @@ public class Mancala
 	{
 		if (side != activePlayer)
 			throw new IllegalArgumentException("Player not currently active.");
+		if (pits[side][pit] == 0)
+			return;
 		
 		if (undoCount[side] == 0)
 		{
