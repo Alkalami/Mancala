@@ -15,11 +15,13 @@ public class GeomLayout extends BoardLayout
 	@Override
 	public void redraw(Graphics2D g, int[][] pits, int[] mancalas)
 	{
+		int side = 0;
 		System.out.println("DEBUG: Layout redraw action");
 		for (int[] ints : pits)
 		{
 			for (int i : ints)
 				System.out.print(i + ", ");
+			System.out.print("**"+mancalas[side++]);
 			System.out.println();
 		}
 
@@ -72,7 +74,7 @@ public class GeomLayout extends BoardLayout
 		int ringCenterY = yorigin + boxheight / 2;
 		int stoneCenterX = (int)(ringCenterX + stoneR * Math.cos(a));
 		int stoneCenterY = (int)(ringCenterY + stoneR * Math.sin(a));
-		System.out.println("DEBUG: R: " + stoneR + " Rcos: " + stoneR * Math.cos(a) + " Rsin: " + Math.sin(a));
+		//System.out.println("DEBUG: R: " + stoneR + " Rcos: " + stoneR * Math.cos(a) + " Rsin: " + Math.sin(a));
 		return new Ellipse2D.Double(stoneCenterX - stoneR * Math.sqrt(2),
 				stoneCenterY - stoneR * Math.sqrt(2), stoneR * 2, stoneR * 2);
 	}
