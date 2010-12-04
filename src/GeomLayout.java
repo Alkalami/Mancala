@@ -67,14 +67,15 @@ public class GeomLayout extends BoardLayout
 	private Ellipse2D.Double rotaryStone(int xorigin, int yorigin,
 			int boxwidth, int boxheight, int n)
 	{
-		rand.setSeed(n);
+		rand.setSeed((xorigin + 1) * (yorigin + 1) * n);
 		double a = rand.nextDouble() * 2 * Math.PI;
 		int stoneR = width / 32;
 		int ringCenterX = xorigin + boxwidth / 2;
 		int ringCenterY = yorigin + boxheight / 2;
 		int stoneCenterX = (int)(ringCenterX + stoneR * Math.cos(a));
 		int stoneCenterY = (int)(ringCenterY + stoneR * Math.sin(a));
-		//System.out.println("DEBUG: R: " + stoneR + " Rcos: " + stoneR * Math.cos(a) + " Rsin: " + Math.sin(a));
+		System.out.println("DEBUG: R: " + stoneR + " stoneX: " + stoneCenterX +
+				" stoneY: " + stoneCenterY + " n: " + n + " a: " + a);
 		return new Ellipse2D.Double(stoneCenterX - stoneR * Math.sqrt(2),
 				stoneCenterY - stoneR * Math.sqrt(2), stoneR * 2, stoneR * 2);
 	}
