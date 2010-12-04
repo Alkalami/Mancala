@@ -4,15 +4,23 @@ import java.awt.Frame;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * A dialog to allow player to set initial stone count
+ * and a board layout to be used for game play
+ * @author Team Edward.
+ *
+ */
+
+/* TO DO: CHANGE THE WAY DIALOG CHOOSES LAYOUT */
+
 public class MDialog extends JDialog
 {
 	private Container frame;
 	private int stoneCount;
-	// change elements to actual layouts
 	private BoardLayout[] layouts;
 	private BoardLayout layout;
-	private int width = 500;
-	private int height = 300;
+	private int width = 400;
+	private int height = 200;
 	
 	/**
 	 * Creates a popup dialog to choose number of stones and the layout
@@ -45,18 +53,12 @@ public class MDialog extends JDialog
 		
 		JRadioButton layout1 = new JRadioButton("Layout 1", true);
 		JRadioButton layout2 = new JRadioButton("Layout 2");
-		JRadioButton layout3 = new JRadioButton("Layout 3");
-		JRadioButton layout4 = new JRadioButton("Layout 4");
 		ButtonGroup layoutGroup = new ButtonGroup();
 	 
 		layoutPanel.add(layout1);
 		layoutGroup.add(layout1);
 		layoutPanel.add(layout2);
 		layoutGroup.add(layout2);
-		layoutPanel.add(layout3);
-		layoutGroup.add(layout3);
-		layoutPanel.add(layout4);
-		layoutGroup.add(layout4);
 		
 		JButton start = new JButton("Start Game");
 		
@@ -64,8 +66,6 @@ public class MDialog extends JDialog
 		four.addActionListener(setStoneCount(4));
 		layout1.addActionListener(setLayout(1));
 		layout2.addActionListener(setLayout(2));
-		layout3.addActionListener(setLayout(3));
-		layout4.addActionListener(setLayout(4));
 		start.addActionListener(new
 		ActionListener()
 		{
@@ -80,7 +80,7 @@ public class MDialog extends JDialog
 		// stone choices
 		Box box1 = Box.createHorizontalBox();
 		box1.add(chooseStones);
-		box1.add(Box.createHorizontalStrut(215));
+		box1.add(Box.createHorizontalStrut(35));
 	   box1.add(stonePanel);
 	   
 	   // layout choices
@@ -91,8 +91,8 @@ public class MDialog extends JDialog
 	   
 	   // start button
 	   Box box3 = Box.createHorizontalBox();
-	   box3.add(Box.createVerticalStrut(330));
-	   box3.add(Box.createHorizontalStrut(350));
+	   box3.add(Box.createVerticalStrut(100));
+	   box3.add(Box.createHorizontalStrut(200));
 	   box3.add(start);
 		
 		frame.setLayout(new FlowLayout());
@@ -141,7 +141,7 @@ public class MDialog extends JDialog
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				layout = layouts[layoutNumber];
+				layout = layouts[layoutNumber-1];
 			}
 		};
 	}

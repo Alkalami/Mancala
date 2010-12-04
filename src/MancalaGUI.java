@@ -5,6 +5,12 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * The GUI for the mancala game which handles mouse clicks
+ * and sets the board and game to begin playing
+ * @author Team Edward.
+ *
+ */
 public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 			 ActionListener
 {
@@ -16,8 +22,6 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 	private static final int HEIGHT = 400;
 	private static final int BOARD_WIDTH = 450;
 	private static final int BOARD_HEIGHT = 325;
-
-	int move = 0; // delete when clicking is implemented
 	
 	/**
 	 * The view and frame that shows the mancala game visually
@@ -49,7 +53,7 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 		undoButton = new JButton("Undo: "+game.getUndoCount());
 		undoButton.addActionListener(this);
 
-		// Add Board's mouseListene6
+		// Add Board's mouseListener
 		board.addMouseListener(this);
 		
 		setLayout(new FlowLayout());
@@ -95,14 +99,12 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 	 */
 	public void stateChanged(ChangeEvent event)
 	{
-		// popup dialog and state winner is the active player really the winner?
-		// TODO Change WARNING to something more appropriate. INFO?
 		System.out.println("DEBUG: Change Event Caught");
-		if (game.isGameOver())
-			JOptionPane.showMessageDialog(this, "Player "+game.getActive() +
-					" is the winner!", "Game Over", JOptionPane.WARNING_MESSAGE);
 		board.setData(game.getPits(), game.getMancalas());
 		board.repaint();
+		if (game.isGameOver())
+			JOptionPane.showMessageDialog(this, "Player "+(game.getActive()+1) +
+					" is the winner!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void makeDialog(BoardLayout[] layouts)

@@ -32,8 +32,6 @@ public class Mancala
 		activePlayer = 0;
 		undo = false;
 		activeUndoPlayer = 0;
-		//for (int i = 0; i < undoCount.length; i++)
-		//	 undoCount[i] = 0;
 		setUndoBuffer();
 	}
 	
@@ -46,6 +44,7 @@ public class Mancala
 	{
 		if (side != activePlayer)
 			throw new IllegalArgumentException("Player not currently active.");
+		// empty pit chosen
 		if (pits[side][pit] == 0)
 			return;
 		
@@ -73,7 +72,7 @@ public class Mancala
 					--hand;
 					if (hand <= 0)
 					{
-						//activePlayer = nextSide(side);
+						// updates board and lets current player have a free turn
 						somethingChanged();
 						return;
 					}
@@ -102,6 +101,8 @@ public class Mancala
 		// player made max number of undo
 		if (undoCount[activeUndoPlayer] == UNDO_MAX)
 			return;
+		
+		// sets all data back to previous move
 		for (int i = 0; i < N_PLAYERS; i++)
 			pits[i] = undoPits[i].clone();
 		mancalas = undoMancalas.clone();
