@@ -45,7 +45,7 @@ public class Board extends JComponent
 	 */
 	public void paintComponent(Graphics g)
 	{
-		layout.redraw((Graphics2D) g, pits, mancalas);
+		layout.redraw(g, this, pits, mancalas);
 	}
 
 	/**

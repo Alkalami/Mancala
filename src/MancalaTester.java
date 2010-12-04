@@ -7,7 +7,8 @@ public class MancalaTester
 	public static void main(String[] args)
 	{
 
-		BoardLayout[] layouts = { new GeomLayout(Mancala.N_PLAYERS, Mancala.BOARD_LENGTH) };
+		BoardLayout[] layouts = { new GeomLayout(Mancala.N_PLAYERS,
+				Mancala.BOARD_LENGTH), new ClassicLayout(Mancala.N_PLAYERS, Mancala.BOARD_LENGTH) };
 		MancalaGUI gui = new MancalaGUI(layouts);
 	}
 }

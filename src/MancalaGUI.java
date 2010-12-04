@@ -112,7 +112,7 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 		MDialog popup = new MDialog(this, layouts);
 		popup.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		popup.showDialog();
-		start(popup.stoneNumber(), popup.layoutNumber());
+		start(popup.stoneNumber(), popup.getSelectedLayout());
 	}
 
 	/**

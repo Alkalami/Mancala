@@ -11,7 +11,7 @@ import javax.swing.*;
  *
  */
 
-/* TO DO: CHANGE THE WAY DIALOG CHOOSES LAYOUT */
+/* TODO: CHANGE THE WAY DIALOG CHOOSES LAYOUT ?DONE?*/
 
 public class MDialog extends JDialog
 {
@@ -51,21 +51,20 @@ public class MDialog extends JDialog
 		
 		JLabel chooseLayout = new JLabel("Choose a layout: ");
 		
-		JRadioButton layout1 = new JRadioButton("Layout 1", true);
-		JRadioButton layout2 = new JRadioButton("Layout 2");
+		JRadioButton[] layoutButtons  = new JRadioButton[layouts.length];
 		ButtonGroup layoutGroup = new ButtonGroup();
-	 
-		layoutPanel.add(layout1);
-		layoutGroup.add(layout1);
-		layoutPanel.add(layout2);
-		layoutGroup.add(layout2);
+		for (int i = 0; i < layouts.length; i++)
+		{
+			layoutButtons[i] = new JRadioButton(layouts[i].getName(), i == 0);
+			layoutPanel.add(layoutButtons[i]);
+			layoutGroup.add(layoutButtons[i]);
+			layoutButtons[i].addActionListener(setLayout(i));
+		}
 		
 		JButton start = new JButton("Start Game");
 		
 		three.addActionListener(setStoneCount(3));
 		four.addActionListener(setStoneCount(4));
-		layout1.addActionListener(setLayout(1));
-		layout2.addActionListener(setLayout(2));
 		start.addActionListener(new
 		ActionListener()
 		{
@@ -141,7 +140,8 @@ public class MDialog extends JDialog
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				layout = layouts[layoutNumber-1];
+				System.out.println("DEBUG: Setting layout to #: " + layoutNumber);
+				layout = layouts[layoutNumber];
 			}
 		};
 	}
@@ -156,10 +156,10 @@ public class MDialog extends JDialog
 	}
 	
 	/**
-	 * Gets the layout number
-	 * @return the layout number
+	 * Gets the layout selected in the dialog
+	 * @return BoardLayout to use
 	 */
-	public BoardLayout layoutNumber()
+	public BoardLayout getSelectedLayout()
 	{
 		return layout;
 	}

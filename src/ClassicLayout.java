@@ -1,20 +1,31 @@
 import java.awt.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.image.*;
 import java.awt.geom.*;
 import java.util.*;
 
-public class GeomLayout extends BoardLayout
+public class ClassicLayout extends BoardLayout
 {
-	public GeomLayout(int nPlayers, int boardLength)
+	public ClassicLayout(int nPlayers, int boardLength)
 	{
 		super(nPlayers, boardLength);
 		this.nPlayers = nPlayers;
 		this.boardLength = boardLength;
 		mRects = new Rectangle2D.Double[nPlayers];
+		try {
+		bg = ImageIO.read(new File("resources/classic_bg.png"));
+		System.out.println("DEBUG: Image load was success!");
+		}
+		catch (Exception e) { bg = null; }
 	}
 
 	@Override
 	public void redraw(Graphics g, Board b, int[][] pits, int[] mancalas)
 	{
+		System.out.println("DEBUG: Drawing Image");
+		
+
 		Graphics2D g2 = (Graphics2D) g;
 		int side = 0;
 		System.out.println("DEBUG: Layout redraw action");
@@ -69,7 +80,7 @@ public class GeomLayout extends BoardLayout
 	}
 
 	@Override
-	public String getName() { return "Geometric Layout"; }
+	public String getName() { return "Classic Layout"; }
 
 	/**
 	 * Creates an ellipse to use as a stone.
@@ -97,6 +108,10 @@ public class GeomLayout extends BoardLayout
 	private Rectangle2D.Double[] mRects;
 	private int nPlayers;
 	private int boardLength;
+	private Image bg;
+	private Image pit;
+	private Image stone;
+	private Image mancala;
 	private static Random rand = new Random();
 }
 

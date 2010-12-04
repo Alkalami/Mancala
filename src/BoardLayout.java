@@ -26,10 +26,17 @@ public abstract class BoardLayout
 	 * @param pits the pits
 	 * @param mancalas the mancalas
 	 */
-	public abstract void redraw(Graphics2D g2, int[][] pits, int[] mancalas);
+	public abstract void redraw(Graphics g, Board b, int[][] pits,
+			int[] mancalas);
 
 	/**
-	 * Gets the rectangular pits
+	 * Abstract method to get the Layout name
+	 * @return The string to use as the name
+	 */
+	public abstract String getName();
+
+	/**
+	 * Gets the bounding boxes for the pits
 	 * @return the rectangular pits
 	 */
 	public Rectangle2D.Double[][] getPitRects() { return pitRects; }
