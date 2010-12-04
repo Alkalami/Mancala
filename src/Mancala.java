@@ -25,13 +25,15 @@ public class Mancala
 		for (int p = 0; p < N_PLAYERS; p++)
 		{
 			mancalas[p] = 0;
+			undoCount[p] = 0;
 			for (int col = 0; col < BOARD_LENGTH; col++)
 				pits[p][col] = stones;
 		}
 		activePlayer = 0;
+		undo = false;
 		activeUndoPlayer = 0;
-		for (int i = 0; i < undoCount.length; i++)
-			 undoCount[i] = 0;
+		//for (int i = 0; i < undoCount.length; i++)
+		//	 undoCount[i] = 0;
 		setUndoBuffer();
 	}
 	
@@ -47,15 +49,15 @@ public class Mancala
 		if (pits[side][pit] == 0)
 			return;
 		
+		setUndoBuffer();
 		if (undoCount[side] == 0)
 		{
-			setUndoBuffer();
 			//resets other player's undo count
 			undoCount[nextSide(side)] = 0;
 			activeUndoPlayer = side;
 		}
 
-
+		undo = true;
 		int hand = pits[side][pit];
 		pits[side][pit] = 0;
 		while (hand > 0)
@@ -91,16 +93,21 @@ public class Mancala
 	{
 		if (isGameOver())
 			return;
-		if (activePlayer == activeUndoPlayer && getUndoCount() == UNDO_MAX)
+		// first move of the game
+		if (!undo)
 			return;
-		if (activePlayer == activeUndoPlayer && undoCount[nextSide(activePlayer)] == 0)
+		// player just made undo
+		if (activePlayer == activeUndoPlayer && !undo)
 			return;
+		// player made max number of undo
 		if (undoCount[activeUndoPlayer] == UNDO_MAX)
 			return;
-		pits = undoPits;
-		mancalas = undoMancalas;
-		undoCount[nextSide(activePlayer)]++;
-		activePlayer = nextSide(activePlayer);
+		for (int i = 0; i < N_PLAYERS; i++)
+			pits[i] = undoPits[i].clone();
+		mancalas = undoMancalas.clone();
+		undoCount[activeUndoPlayer]++;
+		activePlayer = activeUndoPlayer;
+		undo = false;
 		somethingChanged();
 	}
 
@@ -175,9 +182,9 @@ public class Mancala
 		 */
 		if (side == activePlayer && pits[side][pit] == 1)
 		{
-			mancalas[side] += 1 + pits[nextSide(side)][pit];
+			mancalas[side] += 1 + pits[nextSide(side)][BOARD_LENGTH - pit - 1];
 			pits[side][pit] = 0;
-			pits[nextSide(side)][pit] = 0;
+			pits[nextSide(side)][BOARD_LENGTH - pit - 1] = 0;
 		}
 		else
 		{
@@ -289,6 +296,7 @@ public class Mancala
 	private int[] mancalas;
 	private int[] undoMancalas;
 	private int activePlayer; // Change to turn checking var name;
+	private boolean undo;
 	private int activeUndoPlayer;
 	private int[] undoCount;
 	private ArrayList<ChangeListener> listeners;
