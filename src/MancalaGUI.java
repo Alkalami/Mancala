@@ -74,8 +74,16 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 	{
 		if (game.isGameOver())
 			return;
-		Rectangle2D.Double[][] rects = board.getPitRectangles();
+		Rectangle2D.Double[][] rects = board.getPitRectangles().clone();
+		
+		//reverse player 2 pits
+		Rectangle2D.Double[] temp = new Rectangle2D.Double[rects[1].length];
+		for (int i = 0; i<Mancala.BOARD_LENGTH; i++)
+			temp[Mancala.BOARD_LENGTH-1-i] = rects[1][i];
+		rects[1] = temp;
+
 		for (int row = 0; row < Mancala.N_PLAYERS; row++)
+		{
 			for (int col = 0; col < Mancala.BOARD_LENGTH; col++)
 			{
 				if (rects[row][col].contains(e.getPoint()))
@@ -90,6 +98,7 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 								"Invalid Move", JOptionPane.WARNING_MESSAGE);
 					}
 			}
+		}
 	}
 
 	/**

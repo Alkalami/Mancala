@@ -42,10 +42,17 @@ public class GeomLayout extends BoardLayout
 								(int)mRects[r].getHeight()));
 			}
 			for (int c = 0; c < pits[r].length; c++)
-				for (int stone = pits[r][c]; stone > 0; stone--)
+				for (int stone = pits[r][c]; stone > 0; stone--) {
+					// reverses the stones on player 2's side
+					int temp = c;
+					if (r==1) {
+						c = boardLength-1-c;
+					}
 					g2.draw(rotaryStone((int)pitRects[r][c].getX(),
 								(int)pitRects[r][c].getY(), (int)pitRects[r][c].getWidth(),
 								(int)pitRects[r][c].getHeight()));
+					c = temp;
+				}
 		}
 
 	}
@@ -61,7 +68,7 @@ public class GeomLayout extends BoardLayout
 					0, width / 8, height / 2);
 		int s = boardLength - 1; /* Hack var to reverse direction */
 		for (int c = 0; c < boardLength; c++)
-		{
+		{	
 			pitRects[0][c] = new Rectangle2D.Double(width / 8 * (c + 1),
 					height / 2, width / 8, height / 2);
 			--s;
@@ -88,8 +95,8 @@ public class GeomLayout extends BoardLayout
 		int ringCenterY = yorigin + boxheight / 2;
 		int stoneCenterX = (int)(ringCenterX + stoneR * Math.cos(a));
 		int stoneCenterY = (int)(ringCenterY + stoneR * Math.sin(a));
-		System.out.println("DEBUG: R: " + stoneR + " stoneX: " + stoneCenterX +
-				" stoneY: " + stoneCenterY + " a: " + a);
+		//System.out.println("DEBUG: R: " + stoneR + " stoneX: " + stoneCenterX +
+		//		" stoneY: " + stoneCenterY + " a: " + a);
 		return new Ellipse2D.Double(stoneCenterX - stoneR * Math.sqrt(2),
 				stoneCenterY - stoneR * Math.sqrt(2), stoneR * 2, stoneR * 2);
 	}

@@ -19,7 +19,7 @@ public class MDialog extends JDialog
 	private int stoneCount;
 	private BoardLayout[] layouts;
 	private BoardLayout layout;
-	private int width = 400;
+	private int width = 450;
 	private int height = 200;
 	
 	/**
@@ -79,7 +79,7 @@ public class MDialog extends JDialog
 		// stone choices
 		Box box1 = Box.createHorizontalBox();
 		box1.add(chooseStones);
-		box1.add(Box.createHorizontalStrut(35));
+		box1.add(Box.createHorizontalStrut(135));
 	   box1.add(stonePanel);
 	   
 	   // layout choices
@@ -91,7 +91,7 @@ public class MDialog extends JDialog
 	   // start button
 	   Box box3 = Box.createHorizontalBox();
 	   box3.add(Box.createVerticalStrut(100));
-	   box3.add(Box.createHorizontalStrut(200));
+	   box3.add(Box.createHorizontalStrut(300));
 	   box3.add(start);
 		
 		frame.setLayout(new FlowLayout());
