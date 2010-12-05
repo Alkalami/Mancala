@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.48.0 r9654"
    sodipodi:docname="classic_master.svg"
-   inkscape:export-filename="/home/steven/Code/java/mancala/resources/classic_stone.png"
+   inkscape:export-filename="/home/steven/Code/java/mancala/resources/classic_bg.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    style="display:inline">
@@ -95,19 +95,7 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient4284">
-      <stop
-         style="stop-color:#552200;stop-opacity:1;"
-         offset="0"
-         id="stop4286" />
-      <stop
-         style="stop-color:#552200;stop-opacity:0;"
-         offset="1"
-         id="stop4288" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4284"
+       xlink:href="#linearGradient4131"
        id="linearGradient4290"
        x1="74.64286"
        y1="179.64285"
@@ -3213,11 +3201,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.8176506"
-     inkscape:cx="123.51309"
-     inkscape:cy="219.25007"
+     inkscape:zoom="1.2044127"
+     inkscape:cx="191.96928"
+     inkscape:cy="349.2922"
      inkscape:document-units="px"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1160"
      inkscape:window-height="1174"
@@ -3321,7 +3309,7 @@
          id="tspan6045"
          x="380.625"
          y="740.36218"
-         style="font-size:10px;text-align:center;text-anchor:middle;fill:#ff6600">Team Edward Presents:</tspan><tspan
+         style="font-size:12px;text-align:center;text-anchor:middle;fill:#ff6600">Team Edward Presents:</tspan><tspan
          sodipodi:role="line"
          x="380.625"
          y="758.86218"
@@ -3553,7 +3541,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer4"
-     inkscape:label="Stones">
+     inkscape:label="Stones"
+     style="display:none">
     <path
        sodipodi:type="arc"
        style="fill:url(#linearGradient4145);fill-opacity:1;stroke:#5599ff;stroke-opacity:1"

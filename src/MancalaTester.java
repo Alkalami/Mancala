@@ -9,7 +9,6 @@ public class MancalaTester
 
 		BoardLayout[] layouts = {
 			new ClassicLayout(Mancala.N_PLAYERS, Mancala.BOARD_LENGTH),
-			new GeomLayout(Mancala.N_PLAYERS, Mancala.BOARD_LENGTH),
 	 		new OMGPoniesLayout(Mancala.N_PLAYERS, Mancala.BOARD_LENGTH)
 		};
 

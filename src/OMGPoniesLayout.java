@@ -64,7 +64,7 @@ public class OMGPoniesLayout extends BoardLayout
 	}
 
 	@Override
-	public String getName() { return "Classic Layout"; }
+	public String getName() { return "OMG Ponies!"; }
 
 	/**
 	 * Creates an ellipse to use as a stone.
