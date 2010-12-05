@@ -75,14 +75,11 @@ public class MDialog extends JDialog
 		
 		// stone choices
 		Box box1 = Box.createHorizontalBox();
-		box1.add(chooseStones);
 		box1.add(Box.createHorizontalStrut(135));
 	   box1.add(stonePanel);
 	   
 	   // layout choices
-	   Box box2 = Box.createHorizontalBox();
-	   box2.add(chooseLayout);
-	   box2.add(Box.createHorizontalStrut(0));
+	   Box box2 = Box.createVerticalBox();
 	   box2.add(layoutPanel);
 	   
 	   // start button
@@ -91,8 +88,10 @@ public class MDialog extends JDialog
 	   box3.add(Box.createHorizontalStrut(300));
 	   box3.add(start);
 		
-		frame.setLayout(new FlowLayout());
+		frame.setLayout(new FlowLayout(FlowLayout.LEFT));
+		frame.add(chooseStones);
 		frame.add(box1);
+		frame.add(chooseLayout);
 		frame.add(box2);
 		frame.add(box3);
       setResizable(false);

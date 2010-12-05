@@ -16,16 +16,7 @@ public class GeomLayout extends BoardLayout
 	public void redraw(Graphics g, Board b, int[][] pits, int[] mancalas)
 	{
 		Graphics2D g2 = (Graphics2D) g;
-		int side = 0;
-		System.out.println("DEBUG: Layout redraw action");
-		for (int[] ints : pits)
-		{
-			for (int i : ints)
-				System.out.print(i + ", ");
-			System.out.print("**"+mancalas[side++]);
-			System.out.println();
-		}
-
+		
 		// Draw the bounding boxes.
 		for (Rectangle2D.Double r : mRects)
 			g2.draw(r);
@@ -36,22 +27,14 @@ public class GeomLayout extends BoardLayout
 		for (int r = 0; r < pits.length; r++)
 		{
 			for (int stone = 0; stone < mancalas[r]; stone++)
-			{
 				g2.draw(rotaryStone((int)mRects[r].getX(),
 								(int)mRects[r].getY(), (int)mRects[r].getWidth(),
 								(int)mRects[r].getHeight()));
-			}
 			for (int c = 0; c < pits[r].length; c++)
 				for (int stone = pits[r][c]; stone > 0; stone--) {
-					// reverses the stones on player 2's side
-					int temp = c;
-					if (r==1) {
-						c = boardLength-1-c;
-					}
 					g2.draw(rotaryStone((int)pitRects[r][c].getX(),
 								(int)pitRects[r][c].getY(), (int)pitRects[r][c].getWidth(),
 								(int)pitRects[r][c].getHeight()));
-					c = temp;
 				}
 		}
 
@@ -61,15 +44,15 @@ public class GeomLayout extends BoardLayout
 	public void setSize(int w, int h)
 	{
 		super.setSize(w,h);
-		mRects[0] = new Rectangle2D.Double(width * 7 / 8, 0, width / 8, height);
-		mRects[1] = new Rectangle2D.Double(0, 0 , width / 8, height);
-		for (int c = 0; c < boardLength; c++)
-			pitRects[1][c] = new Rectangle2D.Double(width / 8 * (c + 1),
-					0, width / 8, height / 2);
-		for (int c = 0; c < boardLength; c++)
-		{	
+		mRects[0] = new Rectangle2D.Double(width * 7 / 8-6, 0, width / 8, height-1);
+		mRects[1] = new Rectangle2D.Double(0, 0 , width / 8, height-1);
+		
+		int s = boardLength - 1; /* Hack var to reverse direction */
+		for (int c = 0; c < boardLength; c++) {
 			pitRects[0][c] = new Rectangle2D.Double(width / 8 * (c + 1),
 					height / 2, width / 8, height / 2);
+			pitRects[1][c] = new Rectangle2D.Double(width / 8 * (s - c + 1),
+					0, width / 8, height / 2);
 		}
 	}
 
@@ -93,8 +76,6 @@ public class GeomLayout extends BoardLayout
 		int ringCenterY = yorigin + boxheight / 2;
 		int stoneCenterX = (int)(ringCenterX + stoneR * Math.cos(a));
 		int stoneCenterY = (int)(ringCenterY + stoneR * Math.sin(a));
-		//System.out.println("DEBUG: R: " + stoneR + " stoneX: " + stoneCenterX +
-		//		" stoneY: " + stoneCenterY + " a: " + a);
 		return new Ellipse2D.Double(stoneCenterX - stoneR * Math.sqrt(2),
 				stoneCenterY - stoneR * Math.sqrt(2), stoneR * 2, stoneR * 2);
 	}
