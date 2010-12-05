@@ -15,6 +15,7 @@ public class ClassicLayout extends BoardLayout
 		mRects = new Rectangle2D.Double[nPlayers];
 		try {
 		bg = ImageIO.read(new File("resources/classic_bg.png"));
+		stone
 		System.out.println("DEBUG: Image load was success!");
 		}
 		catch (Exception e) { bg = null; }
@@ -40,7 +41,7 @@ public class ClassicLayout extends BoardLayout
 		// Draw the stones.
 		for (int r = 0; r < pits.length; r++)
 		{
-			for (int stone = 0; stone < mancalas[r]; stone++)
+			for (int s = 0; s < mancalas[r]; s++)
 			{
 				g2.draw(rotaryStone((int)mRects[r].getX(),
 								(int)mRects[r].getY(), (int)mRects[r].getWidth(),

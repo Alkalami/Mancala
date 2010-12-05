@@ -24,6 +24,29 @@
      id="defs4270">
     <linearGradient
        inkscape:collect="always"
+       id="linearGradient4139">
+      <stop
+         style="stop-color:#002255;stop-opacity:1;"
+         offset="0"
+         id="stop4141" />
+      <stop
+         style="stop-color:#0044aa;stop-opacity:1"
+         offset="1"
+         id="stop4143" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4131">
+      <stop
+         style="stop-color:#001637;stop-opacity:1;"
+         offset="0"
+         id="stop4133" />
+      <stop
+         style="stop-color:#2a7fff;stop-opacity:1"
+         offset="1"
+         id="stop4135" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
        id="linearGradient5325">
       <stop
          style="stop-color:#445016;stop-opacity:1;"
@@ -3173,6 +3196,15 @@
        id="linearGradient3866"
        xlink:href="#linearGradient4312-3-45-2-0"
        inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4139"
+       id="linearGradient4145"
+       x1="83.371544"
+       y1="102.30733"
+       x2="94.981346"
+       y2="97.846725"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -3181,14 +3213,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="238.9704"
-     inkscape:cy="181.09369"
+     inkscape:zoom="1.2044126"
+     inkscape:cx="207.22864"
+     inkscape:cy="222.48607"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer4"
      showgrid="false"
      inkscape:window-width="1160"
-     inkscape:window-height="1176"
+     inkscape:window-height="1174"
      inkscape:window-x="2674"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -3517,5 +3549,23 @@
        width="47.742382"
        id="rect4310-30-9-0-8-4-0"
        style="fill:url(#linearGradient3802-1);fill-opacity:1;stroke:#ff6600;stroke-width:2.26061797;stroke-opacity:1;display:inline" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Stones">
+    <path
+       sodipodi:type="arc"
+       style="fill:url(#linearGradient4145);fill-opacity:1;stroke:#5599ff;stroke-opacity:1"
+       id="path4129"
+       sodipodi:cx="86.5"
+       sodipodi:cy="101.75"
+       sodipodi:rx="8"
+       sodipodi:ry="5.75"
+       d="m 94.5,101.75 a 8,5.75 0 1 1 -16,0 8,5.75 0 1 1 16,0 z"
+       transform="matrix(1.1757308,0,0,1.2010168,-13.700718,-21.703462)"
+       inkscape:export-filename="/home/steven/Code/java/mancala/resources/raw/classic/pit.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
