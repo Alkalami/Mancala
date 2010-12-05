@@ -24,7 +24,7 @@ public class ClassicLayout extends BoardLayout
 	public void redraw(Graphics g, Board b, int[][] pits, int[] mancalas)
 	{
 		System.out.println("DEBUG: Drawing Image");
-		
+		g.drawImage(bg, 0, 0, 455, 325, b);
 
 		Graphics2D g2 = (Graphics2D) g;
 		int side = 0;
@@ -58,23 +58,29 @@ public class ClassicLayout extends BoardLayout
 								(int)pitRects[r][c].getY(), (int)pitRects[r][c].getWidth(),
 								(int)pitRects[r][c].getHeight()));
 		}
-
 	}
 
 	@Override
 	public void setSize(int w, int h)
 	{
+		int m = 5; // margin
+		int mW = 55; // Mancala Width
+		int mH = 225; // Mancala Height
+		int mY = 45; // Mancala Y value
+		int pD = 50; // Pit Width and Height
+		int pTop = 75; // Pit Y value
+		int pBottom = 190; // Pit Y value
 		super.setSize(w,h);
-		mRects[0] = new Rectangle2D.Double(width * 7 / 8, 0, width / 8, height);
-		mRects[1] = new Rectangle2D.Double(0, 0 , width / 8, height);
+		mRects[0] = new Rectangle2D.Double(width - m - mW, mY, mW, mH);
+		mRects[1] = new Rectangle2D.Double(m, mY, mW, mH);
 		for (int c = 0; c < boardLength; c++)
-			pitRects[1][c] = new Rectangle2D.Double(width / 8 * (c + 1),
-					0, width / 8, height / 2);
+			pitRects[1][c] = new Rectangle2D.Double(m + mW + m * (c +1) + pD * c,
+					pTop, pD, pD);
 		int s = boardLength - 1; /* Hack var to reverse direction */
 		for (int c = 0; c < boardLength; c++)
 		{
-			pitRects[0][c] = new Rectangle2D.Double(width / 8 * (c + 1),
-					height / 2, width / 8, height / 2);
+			pitRects[0][c] = new Rectangle2D.Double(m + mW + m * (s + 1) + pD * s,
+					pBottom, pD, pD);
 			--s;
 		}
 	}

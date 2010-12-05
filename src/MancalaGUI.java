@@ -20,7 +20,7 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 	private JButton undoButton;
 	private static final int WIDTH = 700;
 	private static final int HEIGHT = 400;
-	private static final int BOARD_WIDTH = 450;
+	private static final int BOARD_WIDTH = 455;
 	private static final int BOARD_HEIGHT = 325;
 	
 	/**
