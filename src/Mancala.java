@@ -140,6 +140,18 @@ public class Mancala
          listener.stateChanged(new ChangeEvent(this));
 
       }
+
+		// Commandline output of stones
+		System.out.print(" ");
+		for (int p = pits[1].length - 1; p >= 0; p--)
+			System.out.print(" " + pits[1][p]);
+		if (mancalas[1] < 10)
+			System.out.print("\n" + mancalas[1] + "             " + mancalas[0] + "\n ");
+		else
+			System.out.print("\n" + mancalas[1] + "           " + mancalas[0] + "\n ");
+		for (int p = 0; p < pits[0].length; p++)
+			System.out.print(" " + pits[0][p]);
+		System.out.println("\n");
 	}
 
 	/**
