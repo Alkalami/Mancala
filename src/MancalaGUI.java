@@ -11,8 +11,8 @@ import javax.swing.event.ChangeListener;
  * @author Team Edward.
  *
  */
-public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
-			 ActionListener
+public class MancalaGUI extends JFrame implements MouseListener,
+			 ChangeListener, ActionListener
 {
 	private Mancala game;
 	private Board board;

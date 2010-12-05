@@ -47,7 +47,8 @@ public class ClassicLayout extends BoardLayout
 								(int)mRects[r].getHeight()));
 			}
 			for (int c = 0; c < pits[r].length; c++)
-				for (int stone = pits[r][c]; stone > 0; stone--) {
+				for (int stone = pits[r][c]; stone > 0; stone--)
+				{
 					// reverses the stones on player 2's side
 					int temp = c;
 					if (r==1) {
@@ -74,12 +75,12 @@ public class ClassicLayout extends BoardLayout
 		super.setSize(w,h);
 		mRects[0] = new Rectangle2D.Double(width - m - mW, mY, mW, mH);
 		mRects[1] = new Rectangle2D.Double(m, mY, mW, mH);
-		for (int c = 0; c < boardLength; c++)
-			pitRects[1][c] = new Rectangle2D.Double(m + mW + m * (c +1) + pD * c,
-					pTop, pD, pD);
+
 		int s = boardLength - 1; /* Hack var to reverse direction */
 		for (int c = 0; c < boardLength; c++)
 		{
+			pitRects[1][c] = new Rectangle2D.Double(m + mW + m * (c + 1) + pD * c,
+					pTop, pD, pD);
 			pitRects[0][c] = new Rectangle2D.Double(m + mW + m * (s + 1) + pD * s,
 					pBottom, pD, pD);
 			--s;
