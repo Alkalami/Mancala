@@ -107,8 +107,8 @@ public class ClassicLayout extends BoardLayout
 		int ringCenterY = yorigin + boxheight / 2;
 		int stoneCenterX = (int)(ringCenterX + stoneR * Math.cos(a));
 		int stoneCenterY = (int)(ringCenterY + stoneR * Math.sin(a));
-		System.out.println("DEBUG: R: " + stoneR + " stoneX: " + stoneCenterX +
-				" stoneY: " + stoneCenterY + " a: " + a);
+		//System.out.println("DEBUG: R: " + stoneR + " stoneX: " + stoneCenterX +
+		//		" stoneY: " + stoneCenterY + " a: " + a);
 		return new Ellipse2D.Double(stoneCenterX - stoneR * Math.sqrt(2),
 				stoneCenterY - stoneR * Math.sqrt(2), stoneR * 2, stoneR * 2);
 	}
