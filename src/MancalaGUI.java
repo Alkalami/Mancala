@@ -76,23 +76,20 @@ public class MancalaGUI extends JFrame implements MouseListener,
 			return;
 		Rectangle2D.Double[][] rects = board.getPitRectangles();
 
-		for (int row = 0; row < Mancala.N_PLAYERS; row++)
-		{
-			for (int col = 0; col < Mancala.BOARD_LENGTH; col++)
-			{
+		for (int row = 0; row < rects.length; row++)
+			for (int col = 0; col < rects[row].length; col++)
 				if (rects[row][col].contains(e.getPoint()))
-					try {
+					try
+					{
 						game.move(row,col);
 						player.setText(game.getPlayer());
-						undoButton.setText("Undo: "+game.getUndoCount());
-			      }
+						undoButton.setText("Undo: "+ game.getUndoCount());
+					}
 					catch (IllegalArgumentException ex)
 					{
 						JOptionPane.showMessageDialog(this, ex.getMessage(),
 								"Invalid Move", JOptionPane.WARNING_MESSAGE);
 					}
-			}
-		}
 	}
 
 	/**

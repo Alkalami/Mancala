@@ -23,19 +23,19 @@ public class ClassicLayout extends BoardLayout
 	@Override
 	public void redraw(Graphics g, Board b, int[][] pits, int[] mancalas)
 	{
-		System.out.println("DEBUG: Drawing Image");
 		g.drawImage(bg, 0, 0, 455, 325, b);
 
 		Graphics2D g2 = (Graphics2D) g;
-		int side = 0;
 		System.out.println("DEBUG: Layout redraw action");
-		for (int[] ints : pits)
-		{
-			for (int i : ints)
-				System.out.print(i + ", ");
-			System.out.print("**"+mancalas[side++]);
-			System.out.println();
-		}
+		
+		for (int p = 0; p < pits[0].length; p++)
+			System.out.print(p + ":" + pits[0][p] + " ");
+		System.out.println("P1:" + mancalas[0]);
+
+		for (int p = pits[1].length - 1; p >= 0; p--)
+			System.out.print(p + ":" + pits[1][p] + " ");
+		System.out.println("P2:" + mancalas[1]);
+
 
 		// Draw the stones.
 		for (int r = 0; r < pits.length; r++)
@@ -79,10 +79,10 @@ public class ClassicLayout extends BoardLayout
 		int s = boardLength - 1; /* Hack var to reverse direction */
 		for (int c = 0; c < boardLength; c++)
 		{
-			pitRects[1][c] = new Rectangle2D.Double(m + mW + m * (c + 1) + pD * c,
-					pTop, pD, pD);
-			pitRects[0][c] = new Rectangle2D.Double(m + mW + m * (s + 1) + pD * s,
+			pitRects[0][c] = new Rectangle2D.Double(m + mW + m * (c + 1) + pD * c,
 					pBottom, pD, pD);
+			pitRects[1][c] = new Rectangle2D.Double(m + mW + m * (s + 1) + pD * s,
+					pTop, pD, pD);
 			--s;
 		}
 	}
