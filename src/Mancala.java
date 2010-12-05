@@ -31,6 +31,7 @@ public class Mancala
 		}
 		activePlayer = 0;
 		undo = false;
+		freeTurn = false;
 		activeUndoPlayer = 0;
 		setUndoBuffer();
 	}
@@ -49,7 +50,11 @@ public class Mancala
 			return;
 		
 		setUndoBuffer();
-		if (undoCount[side] == 0)
+		if (freeTurn) {
+			undoCount[side] = 0;
+			freeTurn = false;
+		}
+		else if (undoCount[side] == 0)
 		{
 			//resets other player's undo count
 			undoCount[nextSide(side)] = 0;
@@ -73,6 +78,7 @@ public class Mancala
 					if (hand <= 0)
 					{
 						// updates board and lets current player have a free turn
+						freeTurn = true;
 						somethingChanged();
 						return;
 					}
@@ -109,6 +115,7 @@ public class Mancala
 		undoCount[activeUndoPlayer]++;
 		activePlayer = activeUndoPlayer;
 		undo = false;
+		freeTurn = false;
 		somethingChanged();
 	}
 
@@ -186,6 +193,7 @@ public class Mancala
 			mancalas[side] += 1 + pits[nextSide(side)][BOARD_LENGTH - pit - 1];
 			pits[side][pit] = 0;
 			pits[nextSide(side)][BOARD_LENGTH - pit - 1] = 0;
+			freeTurn = true;
 		}
 		else
 		{
@@ -237,7 +245,9 @@ public class Mancala
 		}
 		
 		// sets the winner as the active player
-		if (mancalas[activePlayer] < mancalas[nextSide(activePlayer)])
+		if (mancalas[activePlayer] == mancalas[nextSide(activePlayer)])
+			activePlayer = -1;
+		else if (mancalas[activePlayer] < mancalas[nextSide(activePlayer)])
 			activePlayer = nextSide(activePlayer);
 	}
 
@@ -296,8 +306,9 @@ public class Mancala
 	private int[][] undoPits;
 	private int[] mancalas;
 	private int[] undoMancalas;
-	private int activePlayer; // Change to turn checking var name;
+	private int activePlayer;
 	private boolean undo;
+	private boolean freeTurn;
 	private int activeUndoPlayer;
 	private int[] undoCount;
 	private ArrayList<ChangeListener> listeners;

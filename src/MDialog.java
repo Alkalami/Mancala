@@ -10,9 +10,6 @@ import javax.swing.*;
  * @author Team Edward.
  *
  */
-
-/* TODO: CHANGE THE WAY DIALOG CHOOSES LAYOUT ?DONE?*/
-
 public class MDialog extends JDialog
 {
 	private Container frame;
