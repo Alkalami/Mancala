@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MancalaTester
+public class MancalaTest
 {
 	public static void main(String[] args)
 	{

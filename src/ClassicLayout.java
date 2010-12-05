@@ -13,10 +13,10 @@ public class ClassicLayout extends BoardLayout
 		this.nPlayers = nPlayers;
 		this.boardLength = boardLength;
 		mRects = new Rectangle2D.Double[nPlayers];
-		try {
-		bg = ImageIO.read(new File("resources/classic_bg.png"));
-		stone = ImageIO.read(new File("resources/classic_stone.png"));
-		System.out.println("DEBUG: Image load was success!");
+		try
+		{
+			bg = ImageIO.read(new File("resources/classic_bg.png"));
+			stone = ImageIO.read(new File("resources/classic_stone.png"));
 		}
 		catch (Exception e) { bg = null; }
 	}
