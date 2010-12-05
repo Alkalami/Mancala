@@ -15,7 +15,7 @@ public class ClassicLayout extends BoardLayout
 		mRects = new Rectangle2D.Double[nPlayers];
 		try {
 		bg = ImageIO.read(new File("resources/classic_bg.png"));
-		stone
+		stone = ImageIO.read(new File("resources/classic_stone.png"));
 		System.out.println("DEBUG: Image load was success!");
 		}
 		catch (Exception e) { bg = null; }
@@ -40,20 +40,13 @@ public class ClassicLayout extends BoardLayout
 
 		// Draw the stones.
 		for (int r = 0; r < pits.length; r++)
-		{
-			for (int s = 0; s < mancalas[r]; s++)
-			{
-				g2.draw(rotaryStone((int)mRects[r].getX(),
-								(int)mRects[r].getY(), (int)mRects[r].getWidth(),
-								(int)mRects[r].getHeight()));
-			}
 			for (int c = 0; c < pits[r].length; c++)
-				for (int stone = pits[r][c]; stone > 0; stone--)
-					g2.draw(rotaryStone((int)pitRects[r][c].getX(),
-								(int)pitRects[r][c].getY(), (int)pitRects[r][c].getWidth(),
-								(int)pitRects[r][c].getHeight()));
+				for (int s = 0; s < pits[r][c]; s++)
+					drawStone(pitRects[r][c], g, b, s);
+		for (int m = 0; m < mRects.length; m++)
+			for(int s = 0; s < mancalas[m]; s++)
+				drawStone(mRects[m], g, b, s);
 		}
-	}
 
 	@Override
 	public void setSize(int w, int h)
@@ -85,27 +78,20 @@ public class ClassicLayout extends BoardLayout
 
 	/**
 	 * Creates an ellipse to use as a stone.
-	 * @param xorigin the x coordinate of the mancala or pit
-	 * @param yorigin the y coordinate of the mancala or pit
-	 * @param boxwidth the width of the mancala or pit
-	 * @param boxheight the height of the mancala or pit
+	 * @param r the bounding box to draw into
+	 * @param g the graphics context to draw into
+	 * @param b the board to use for as component to draw to
 	 * @param n an integer to aid in seeding the random number generator
 	 */
-	private Ellipse2D.Double rotaryStone(int xorigin, int yorigin,
-			int boxwidth, int boxheight)
+	private void drawStone(Rectangle2D.Double r, Graphics g, Board b, int n)
 	{
-		double a = rand.nextDouble() * 2 * Math.PI;
-		int stoneR = boxwidth / 8;
-		int ringCenterX = xorigin + boxwidth / 2;
-		int ringCenterY = yorigin + boxheight / 2;
-		int stoneCenterX = (int)(ringCenterX + stoneR * Math.cos(a));
-		int stoneCenterY = (int)(ringCenterY + stoneR * Math.sin(a));
-		//System.out.println("DEBUG: R: " + stoneR + " stoneX: " + stoneCenterX +
-		//		" stoneY: " + stoneCenterY + " a: " + a);
-		return new Ellipse2D.Double(stoneCenterX - stoneR * Math.sqrt(2),
-				stoneCenterY - stoneR * Math.sqrt(2), stoneR * 2, stoneR * 2);
+		rand.setSeed((int)r.getX() * n +  (int)r.getY() * n + n * n);
+		int x = rand.nextInt((int)r.getWidth() - stone.getWidth(b));
+		int y = rand.nextInt((int)r.getHeight() - stone.getHeight(b));
+		g.drawImage(stone, (int)r.getX() + x, (int)r.getY() + y, stone.getWidth(b),
+				stone.getHeight(b), b);
 	}
-
+	
 	private Rectangle2D.Double[] mRects;
 	private int nPlayers;
 	private int boardLength;
