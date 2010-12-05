@@ -66,12 +66,10 @@ public class GeomLayout extends BoardLayout
 		for (int c = 0; c < boardLength; c++)
 			pitRects[1][c] = new Rectangle2D.Double(width / 8 * (c + 1),
 					0, width / 8, height / 2);
-		int s = boardLength - 1; /* Hack var to reverse direction */
 		for (int c = 0; c < boardLength; c++)
 		{	
 			pitRects[0][c] = new Rectangle2D.Double(width / 8 * (c + 1),
 					height / 2, width / 8, height / 2);
-			--s;
 		}
 	}
 
