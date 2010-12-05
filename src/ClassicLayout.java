@@ -48,17 +48,9 @@ public class ClassicLayout extends BoardLayout
 			}
 			for (int c = 0; c < pits[r].length; c++)
 				for (int stone = pits[r][c]; stone > 0; stone--)
-				{
-					// reverses the stones on player 2's side
-					int temp = c;
-					if (r==1) {
-						c = boardLength-1-c;
-					}
 					g2.draw(rotaryStone((int)pitRects[r][c].getX(),
 								(int)pitRects[r][c].getY(), (int)pitRects[r][c].getWidth(),
 								(int)pitRects[r][c].getHeight()));
-					c = temp;
-				}
 		}
 	}
 
