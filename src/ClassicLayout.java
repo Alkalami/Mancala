@@ -15,7 +15,6 @@ public class ClassicLayout extends BoardLayout
 		mRects = new Rectangle2D.Double[nPlayers];
 		try {
 		bg = ImageIO.read(new File("resources/classic_bg.png"));
-		System.out.println("DEBUG: Image load was success!");
 		}
 		catch (Exception e) { bg = null; }
 	}
@@ -26,16 +25,18 @@ public class ClassicLayout extends BoardLayout
 		g.drawImage(bg, 0, 0, 455, 325, b);
 
 		Graphics2D g2 = (Graphics2D) g;
-		System.out.println("DEBUG: Layout redraw action");
 		
-		for (int p = 0; p < pits[0].length; p++)
-			System.out.print(p + ":" + pits[0][p] + " ");
-		System.out.println("P1:" + mancalas[0]);
-
+		// Commandline output of stones
+		System.out.print(" ");
 		for (int p = pits[1].length - 1; p >= 0; p--)
-			System.out.print(p + ":" + pits[1][p] + " ");
-		System.out.println("P2:" + mancalas[1]);
-
+			System.out.print(" " + pits[1][p]);
+		if (mancalas[1] < 10)
+			System.out.print("\n" + mancalas[1] + "             " + mancalas[0] + "\n ");
+		else
+			System.out.print("\n" + mancalas[1] + "           " + mancalas[0] + "\n ");
+		for (int p = 0; p < pits[0].length; p++)
+			System.out.print(" " + pits[0][p]);
+		System.out.println("\n");
 
 		// Draw the stones.
 		for (int r = 0; r < pits.length; r++)
@@ -99,8 +100,6 @@ public class ClassicLayout extends BoardLayout
 		int ringCenterY = yorigin + boxheight / 2;
 		int stoneCenterX = (int)(ringCenterX + stoneR * Math.cos(a));
 		int stoneCenterY = (int)(ringCenterY + stoneR * Math.sin(a));
-		//System.out.println("DEBUG: R: " + stoneR + " stoneX: " + stoneCenterX +
-		//		" stoneY: " + stoneCenterY + " a: " + a);
 		return new Ellipse2D.Double(stoneCenterX - stoneR * Math.sqrt(2),
 				stoneCenterY - stoneR * Math.sqrt(2), stoneR * 2, stoneR * 2);
 	}

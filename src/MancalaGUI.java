@@ -99,7 +99,6 @@ public class MancalaGUI extends JFrame implements MouseListener,
 	 */
 	public void stateChanged(ChangeEvent event)
 	{
-		System.out.println("DEBUG: Change Event Caught");
 		board.setData(game.getPits(), game.getMancalas());
 		board.repaint();
 		if (game.isGameOver())

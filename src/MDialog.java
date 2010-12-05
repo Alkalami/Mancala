@@ -137,7 +137,6 @@ public class MDialog extends JDialog
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				System.out.println("DEBUG: Setting layout to #: " + layoutNumber);
 				layout = layouts[layoutNumber];
 			}
 		};
