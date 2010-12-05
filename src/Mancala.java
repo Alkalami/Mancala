@@ -77,7 +77,7 @@ public class Mancala
 					--hand;
 					if (hand <= 0)
 					{
-						// updates board and lets current player have a free turn
+						checkEmpty();
 						freeTurn = true;
 						somethingChanged();
 						return;
@@ -135,12 +135,23 @@ public class Mancala
 	 */
 	public void somethingChanged()
 	{
-		System.out.println("DEBUG: Change Event Emitted");
 		for (ChangeListener listener : listeners)
       {
          listener.stateChanged(new ChangeEvent(this));
 
       }
+
+		// Commandline output of stones
+		System.out.print(" ");
+		for (int p = pits[1].length - 1; p >= 0; p--)
+			System.out.print(" " + pits[1][p]);
+		if (mancalas[1] < 10)
+			System.out.print("\n" + mancalas[1] + "             " + mancalas[0] + "\n ");
+		else
+			System.out.print("\n" + mancalas[1] + "           " + mancalas[0] + "\n ");
+		for (int p = 0; p < pits[0].length; p++)
+			System.out.print(" " + pits[0][p]);
+		System.out.println("\n");
 	}
 
 	/**
@@ -200,7 +211,25 @@ public class Mancala
 			 activePlayer = nextSide(activePlayer);
 		}
 
-      // checks if either side is empty and ends the game
+      checkEmpty();
+		
+		somethingChanged();
+	}
+	
+	/**
+	 * Determines if the game is over
+	 * @return whether the game is over or not
+	 */
+	public boolean isGameOver()
+	{
+		return gameOver;
+	}
+	
+	/**
+	 * Checks if either side is empty and ends the game
+	 */
+	private void checkEmpty()
+	{
 		int[][] checkPits = getPits();
 		int empty;
 		for (int i = 0; i < N_PLAYERS; i++)
@@ -218,16 +247,6 @@ public class Mancala
 					break;
 			 }
 		}
-		somethingChanged();
-	}
-	
-	/**
-	 * Determines if the game is over
-	 * @return whether the game is over or not
-	 */
-	public boolean isGameOver()
-	{
-		return gameOver;
 	}
 	
 	/**

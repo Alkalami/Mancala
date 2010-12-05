@@ -27,16 +27,6 @@ public class ClassicLayout extends BoardLayout
 		g.drawImage(bg, 0, 0, 455, 325, b);
 
 		Graphics2D g2 = (Graphics2D) g;
-		System.out.println("DEBUG: Layout redraw action");
-		
-		for (int p = 0; p < pits[0].length; p++)
-			System.out.print(p + ":" + pits[0][p] + " ");
-		System.out.println("P1:" + mancalas[0]);
-
-		for (int p = pits[1].length - 1; p >= 0; p--)
-			System.out.print(p + ":" + pits[1][p] + " ");
-		System.out.println("P2:" + mancalas[1]);
-
 
 		// Draw the stones.
 		for (int r = 0; r < pits.length; r++)
