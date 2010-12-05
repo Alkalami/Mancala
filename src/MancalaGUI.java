@@ -6,10 +6,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * The GUI for the mancala game which handles mouse clicks
- * and sets the board and game to begin playing
+ * The GUI for the mancala game which acts as a controller,
+ * handles mouse clicks, and sets the board game to begin playing.
  * @author Team Edward.
- *
  */
 public class MancalaGUI extends JFrame implements MouseListener,
 			 ChangeListener, ActionListener

@@ -22,7 +22,8 @@ public abstract class BoardLayout
 
 	/**
 	 * Abstract method that redraws the board
-	 * @param g2 Graphics2D element
+	 * @param g Graphics element
+	 * @param b the board object for drawing images
 	 * @param pits the pits
 	 * @param mancalas the mancalas
 	 */
@@ -37,7 +38,7 @@ public abstract class BoardLayout
 
 	/**
 	 * Gets the bounding boxes for the pits
-	 * @return the rectangular pits
+	 * @return the name of the layout
 	 */
 	public Rectangle2D.Double[][] getPitRects() { return pitRects; }
 

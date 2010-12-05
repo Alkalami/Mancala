@@ -5,8 +5,17 @@ import java.awt.image.*;
 import java.awt.geom.*;
 import java.util.*;
 
+/**
+ * An implementation of BoardLayout
+ * @author Team Edward
+ */
 public class ClassicLayout extends BoardLayout
 {
+/**
+	 * Constructor that creates the layout of the game
+	 * @param nPlayers the number of players
+	 * @param boardLength the number of pits
+	 */
 	public ClassicLayout(int nPlayers, int boardLength)
 	{
 		super(nPlayers, boardLength);
@@ -21,6 +30,10 @@ public class ClassicLayout extends BoardLayout
 		catch (Exception e) { bg = null; }
 	}
 
+	/**
+	 * Redraw using Image files.
+	 * See BoardLayout class
+	 */
 	@Override
 	public void redraw(Graphics g, Board b, int[][] pits, int[] mancalas)
 	{
@@ -38,6 +51,10 @@ public class ClassicLayout extends BoardLayout
 				drawStone(mRects[m], g, b, s);
 		}
 
+	/**
+	 * Sets the size of the board and all the internals.
+	 * See BoardLayout class
+	 */
 	@Override
 	public void setSize(int w, int h)
 	{

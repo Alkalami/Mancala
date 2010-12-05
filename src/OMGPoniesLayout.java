@@ -5,8 +5,17 @@ import java.awt.image.*;
 import java.awt.geom.*;
 import java.util.*;
 
+/**
+ * An insane implementation of BoardLayout
+ * @author Team Edward
+ */
 public class OMGPoniesLayout extends BoardLayout
 {
+	/**
+	 * Constructor that creates the layout of the game
+	 * @param nPlayers the number of players
+	 * @param boardLength the number of pits
+	 */
 	public OMGPoniesLayout(int nPlayers, int boardLength)
 	{
 		super(nPlayers, boardLength);
