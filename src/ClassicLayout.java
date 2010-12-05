@@ -37,13 +37,7 @@ public class ClassicLayout extends BoardLayout
 			System.out.println();
 		}
 
-		// Draw the bounding boxes.
-		for (Rectangle2D.Double r : mRects)
-			g2.draw(r);
-		for (int i = 0; i < pitRects.length; i++)
-			for (Rectangle2D.Double r : pitRects[i])
-				g2.draw(r);
-			// Draw the stones.
+		// Draw the stones.
 		for (int r = 0; r < pits.length; r++)
 		{
 			for (int stone = 0; stone < mancalas[r]; stone++)
@@ -53,10 +47,17 @@ public class ClassicLayout extends BoardLayout
 								(int)mRects[r].getHeight()));
 			}
 			for (int c = 0; c < pits[r].length; c++)
-				for (int stone = pits[r][c]; stone > 0; stone--)
+				for (int stone = pits[r][c]; stone > 0; stone--) {
+					// reverses the stones on player 2's side
+					int temp = c;
+					if (r==1) {
+						c = boardLength-1-c;
+					}
 					g2.draw(rotaryStone((int)pitRects[r][c].getX(),
 								(int)pitRects[r][c].getY(), (int)pitRects[r][c].getWidth(),
 								(int)pitRects[r][c].getHeight()));
+					c = temp;
+				}
 		}
 	}
 
@@ -120,5 +121,3 @@ public class ClassicLayout extends BoardLayout
 	private Image mancala;
 	private static Random rand = new Random();
 }
-
-
