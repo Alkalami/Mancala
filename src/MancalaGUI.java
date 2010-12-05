@@ -112,7 +112,11 @@ public class MancalaGUI extends JFrame implements MouseListener, ChangeListener,
 		board.setData(game.getPits(), game.getMancalas());
 		board.repaint();
 		if (game.isGameOver())
-			JOptionPane.showMessageDialog(this, "Player "+(game.getActive()+1) +
+			if (game.getActive() < 0)
+				JOptionPane.showMessageDialog(this, "The game ended in a draw",
+						"Game Over", JOptionPane.INFORMATION_MESSAGE);
+			else 
+				JOptionPane.showMessageDialog(this, "Player "+(game.getActive()+1) +
 					" is the winner!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
 	}
 
