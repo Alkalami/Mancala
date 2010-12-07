@@ -25,3 +25,7 @@ task :run => [:makeall] do
 	sh "java -cp bin/ MancalaTester"
 end
 
+task :report do
+	sh "erb final_report.html.erb > final_report.html"
+end
+

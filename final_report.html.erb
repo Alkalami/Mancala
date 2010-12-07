@@ -1,0 +1,13 @@
+<% require 'rdiscount'%>
+<html>
+	<head>
+		<title>Team Edward Final Project Report</title>
+		<style type="text/css">
+			body { font-family: Helvetica; width:7in; margin:auto; }
+			h1,h2,h3,h4,h5,h6 { font-family: Palatino; }
+		</style>
+	</head>
+	<body>
+		<%= RDiscount.new(`cat final_report.md`).to_html %>
+	</body>
+</html>
